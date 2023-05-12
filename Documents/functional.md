@@ -203,16 +203,18 @@ The Software needs to be focused on :
 - minimizing the number of tanks used
 - minimizing the number of transfers between tanks
 - The closest result to the target blend
-- The software needs to be able to intake csv files containing the data of the wine, tank sizes, and the percentage to take from each type of wine.
-- The software needs to be able to output a csv file containing the blending steps.
+- The software needs to be able to intake config files containing the data of the wine, tank sizes, and the percentage to take from each type of wine.
+- The software needs to be able to output a file containing the blending steps.
 
 ## Functionalities
 
 ### Must have
 
-- The software needs to be able to intake csv files containing the data of the wine, tank sizes, and the percentage to take from each type of wine.
+- A documentation explaining how to use the software.
+- A config file example ready to be filled
+- The software needs to be able to intake config files containing the data of the wine, tank sizes, and the percentage to take from each type of wine.
 - The software needs to be able to calculate the blending steps.
-- The software needs to be able to output a csv file containing the blending steps.
+- The software needs to be able to output a file containing the blending steps.
 
 ### Compatibility
 
@@ -261,14 +263,17 @@ The project is not supposed to be used by anyone outside of the company, so ther
 
 ### Usability
 
+
 The software needs to be easy to use, we need to make sure that the user can understand how to use it even if not required.
 
 The software should adapt to the most common use cases, since the software should be used once per year, we need to focus more on the performance than the GUI or the UX.
 
+The software will be a console application, so it will not have any GUI.
+
 ### Maintainability
 
 The software should not need to be adapted since the industry of wine is stable and does not change much.
-The software is supposed to be used once per year, there is little to no changes at all in the industry of wine.
+The software is supposed to be used once per year, there are little to no changes at all in the industry of wine.
 
 ### Scalability
 
@@ -291,13 +296,14 @@ To prevent this from happening, we need to make sure that the software is well d
 
 ### Development environment
 
-The software will be developed only on Mac OS M1, we will use version 11 of CPP
+The software will be developed only on Mac OS M1, we will use version 11 of CPP.
+It is a console application so any editor will work.
 
 | Technology | Version |
 | --- | --- |
 | CPP | 11 |
-| Bazel | pre-7.0.0 |
-| google test | 1.13.0 |
+| Bazel | 6.11 |
+| google test | 1.12.0 |
 
 ### What is Bazel?
 
