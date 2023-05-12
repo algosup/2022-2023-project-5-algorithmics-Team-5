@@ -2,11 +2,7 @@
 
 ## <div align="center">Group 5</div>
 
-- Project Manager: [Lucas AUBARD]()
-- Program Manager: [Louis DE LAVENNE](https://github.com/Louis-de-Lavenne-de-Choulot)
-- Technical Leader: [Arthur LEMOINE](https://github.com/arthur-lemo1ne)
-- Quality Ensurance: [Laurent BOUQUIN](https://github.com/laurentbouquin)
-- Software Engineer: [Robin DEBRY](https://github.com/robin-debry)
+# <div align="center">Technical Specifications</div>
 
 <div align="right">Created on: 05/05/2023</div>
 <div align="right">Last updated on: 10/05/2023</div>
@@ -38,14 +34,14 @@ Krug Champagne will open a new winery. They want to hasten and renew the process
 
 ### *Goals*
 
-The whole point of this software is to save time during the blending process. In order to do that the software will determine the necessary steps to acheive a specific blend (formula given by the user). 
-- We need the final process to be as short as possible (minimum numer of steps).
+The whole point of this software is to save time during the blending process. In order to do that the software will determine the necessary steps to achieve a specific blend (formula given by the user). 
+- We need the final process to be as short as possible (minimum number of steps).
 - We need the software to be as fast as possible whatever the number of parameters.
 - We need to take into account all requirements related to champagne blending and logistical issues.
 
 ### *Technical Requirements*
 
-The software will run on the following configuration:
+The software will run on the following minimum configuration:
 
 |           |               |
 |-----------|---------------|
@@ -53,7 +49,7 @@ The software will run on the following configuration:
 |**RAM**    | 2 Go          |
 |**MEMORY** | 10 Mo         |
 
-This configuration is subject to change in the future depending on the developement process.
+This configuration is subject to change in the future depending on the development process.
 
 ### *Developement Environment*
 
@@ -69,11 +65,11 @@ This configuration is subject to changes if issues were to arise.
 
 ### *Out-Of-Scope*
 
-The software will not support OS older than **Windows 7**, nor will it support older version of CPP.
+The software will not support OS older than **Windows 7**, nor will it support older versions of CPP.
 
-In the case that the input or process does not follow documentation, troubleshooting won't be done by the software in order to try to format the data and make it work.
+In the specific case where the input or process does not follow the documentation, troubleshooting won't be done by the software in order to try to format the data and make it work.
 
-Result won't be dynamically updated when the input will change, user will have to run the software again.
+The result won't be dynamically updated when the input will change, The user will have to run the software again.
 
 ## **Solutions**
 
@@ -95,9 +91,9 @@ Struct Formula containing
 Struct Step containing
 - Nothing for the moment
 
-#### <u>Algorythm</u>
+#### <u>Algorithm</u>
 
-In order to determine the blending steps the software will follow the algorythm defined bellow.
+In order to determine the blending steps the software will follow the algorythm defined below.
 
 Inputs:
 - A table containing Tank structs
@@ -109,27 +105,27 @@ Process:
     1. Total Quantity Of Each Wine
     2. Total Possible Output
     3. Determine Output Tank(-s)
-2. Transer
+2. Transfer
     1. Select Tank Output1
     2. Determine Tank Origin1
     3. Determine Tank Origin2
     4. Determine Tank Origin3
     5. Repeat for each Output Tank
-3. Verify there is no half full tanks
+3. Verify there is no half-full tanks
     1. circle through all tanks
     2. if tanks are half full either
         - Do a final mix with a formula that will be wrong
         - Reunite the same wine in the same tank (if quantities are good)
-        - Put those wines in bottle
+        - Put those wines in bottles
 
 Output:
 - A table containing steps structs
 
 ### *Test Plan*
 
-The tests will be executed as descirbed in the [test plan](/Documents/test_plan.md).
+The tests will be executed as described in the [test plan](/Documents/test_plan.md).
 
-### *Release And Deployement Plan*
+### *Release And Deployment Plan*
 
 `To define`
 
