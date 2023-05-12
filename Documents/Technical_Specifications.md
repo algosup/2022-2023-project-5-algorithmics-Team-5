@@ -7,8 +7,6 @@
 <div align="right">Created on: 05/05/2023</div>
 <div align="right">Last updated on: 10/05/2023</div>
 
-# <div align="center">Technical Specifications</div>
-
 <details>
 <summary>Table of Content</summary>
 
