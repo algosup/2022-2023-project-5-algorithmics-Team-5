@@ -73,6 +73,10 @@ The result won't be dynamically updated when the input will change, The user wil
 
 ### *Design* [```Work in Progress```]
 
+#### **Architecture design**
+
+![architecture_design](/Documents/Image/Architecture_Design.png)
+
 #### **Environment**
 
 Struct Formula containing
@@ -131,18 +135,47 @@ The tests will be executed as described in the [test plan](/Documents/test_plan.
 
 ### *Alternate Design*
 
+This is an alternative design as the first one may contain issues or fatal flaws. it differs in environment and algorithm
+
 #### **Environment**
 
-Second environment
+Struct Formula containing:
+- ...
 
-`To define`
+Function named *Find_Tank* taking an input of type int which search in the tanks for one with the matching size
+```cpp 
+Find_Tank(int amount)
+```
+
+Function named *Split_Formula* taking an input of type Formula which split the formula (whatever it means)
+```cpp
+Split_Formula(Formula F)
+```
+
+Function named *Solve* taking tow inputs of type Formula and float
+```cpp
+Solve(Formula F, float a){
+	Find_Tank(a);
+	formulas = Split_Formula(F);
+	foreach(Formula f : formulas)
+	{
+		Solve(f, ??);
+	}
+}
+```
 
 #### **Algorithm**
 
+Inputs:
+- F of type Formula
+- a of type (float/double) representing the final quantity of wine
 
-Second algorithm differing in parameters and process:
-
-`To define`
+Algorithm:
+1. Solve Formula using *Solve*
+	2. Search for the output tank using *Find_Tank*
+	3. Split the formula Using *Split_Formula*
+	4. Foreach new formula
+		- Solve the formula using *Solve*
 
 ## **Further Considerations**
 
@@ -192,11 +225,23 @@ Metrics:
 
 ### *Prioritization*
 
-`To define`
+The priorities of the team for this project are the following:
+
+1. Algorithm
+2. Error Margin
+3. Documents (User Manual)
+4. User Iterface
 
 ### *Milestones*
 
-`To define`
+For this project, the main milestones are the following:
+1. Functioning algorithm
+2. Algorithm error margin falls under specifications
+3. Documents (User Manual)
+
+To go further:
+
+4. User Interface
 
 ## **End Matter**
 
