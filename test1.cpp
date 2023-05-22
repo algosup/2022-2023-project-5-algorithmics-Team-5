@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
@@ -76,24 +77,25 @@ int main() {
   }
 
   cout << "Cuves: " << endl;
-for (const Cuve& cuve : cuves) {
-cout << "Cuve " << cuve.number << " : " << cuve.quantite << "hL";
-if (!cuve.vins_contenu.empty()) {
-cout << " contains ";
-for (int i = 0; i < cuve.vins_contenu.size(); i++) {
-if (i > 0) {
-cout << ", ";
-}
-cout << cuve.vins_contenu[i];
-}
-}
-cout << endl;
-}
+  for (const Cuve& cuve : cuves) {
+    cout << "Cuve " << cuve.number << " : " << cuve.quantite << "hL";
+    if (!cuve.vins_contenu.empty()) {
+      cout << " contains ";
+      for (int i = 0; i < cuve.vins_contenu.size(); i++) {
+        if (i > 0) {
+          cout << ", ";
+        }
+        cout << cuve.vins_contenu[i];
+      }
+    }
+    cout << endl;
+  }
 
   cout << "Vins: " << endl;
   for (const string& vin : vins) {
     cout << vin << endl;
   }
+
   cout << "Pourcentages: " << endl;
   for (double pourcentage : pourcentages) {
     cout << pourcentage << "%" << endl;
@@ -115,44 +117,107 @@ cout << endl;
   for (int i = 0; i < vins.size(); i++) {
     required_volumes[i] = total_volume * pourcentages[i] / 100;
   }
+
   // Sort cuves by descending volume
-sort(cuves.begin(), cuves.end(), [](const Cuve& cuve1, const Cuve& cuve2) {
-return cuve1.quantite > cuve2.quantite;
-});
+  sort(cuves.begin(), cuves.end(), [](const Cuve& cuve1, const Cuve& cuve2) {
+    return cuve1.quantite > cuve2.quantite;
+  });
 
-// Calculate volumes of each wine in each cuve
-vector<vector<double>> cuves_volumes(cuves.size(), vector<double>(vins.size(), 0));
-for (int i = 0; i < cuves.size(); i++) {
-for (int j = 0; j < vins.size(); j++) {
-cuves_volumes[i][j] = cuves[i].quantite * pourcentages[j] / 100;
-}
-}
+  // Calculate volumes of each wine in each cuve
+  vector<vector<double>> cuves_volumes(cuves.size(), vector<double>(vins.size(), 0));
+  for (int i = 0; i < cuves.size(); i++) {
+    for (int j = 0; j < vins.size(); j++) {
+      cuves_volumes[i][j] = cuves[i].quantite * pourcentages[j] / 100;
+    }
+  }
 
-// Determine cuves to use for each wine
-vector<vector<int>> cuves_to_use(vins.size(), vector<int>());
-for (int i = 0; i < vins.size(); i++) {
-double remaining_volume = required_volumes[i];
-for (int j = 0; j < cuves.size() && remaining_volume > 0; j++) {
-if (cuves_volumes[j][i] > 0) {
-double volume_to_use = min(remaining_volume, cuves_volumes[j][i]);
-cuves_to_use[i].push_back(j);
-remaining_volume -= volume_to_use;
-}
-}
-if (remaining_volume > 0) {
-cerr << "Not enough wine available for " << vins[i] << endl;
-return 1;
-}
-}
+  // Determine cuves to use for each wine
+  vector<vector<int>> cuves_to_use(vins.size(), vector<int>());
+  map<string, double> total_volumes;
 
-// Output cuves to use for each wine
-for (int i = 0; i < vins.size(); i++) {
-cout << "For wine " << vins[i] << ":" << endl;
+  for (int i = 0; i < vins.size(); i++) {
+    double remaining_volume = required_volumes[i];
+    double total_available_volume = 0; // Total volume available in cuves without wine
+    for (int j = 0; j < cuves.size() && remaining_volume > 0; j++) {
+      if (cuves_volumes[j][i] > 0 && cuves[j].vins_contenu[0] == "/") {
+        total_available_volume += cuves_volumes[j][i];
+      }
+    }
+
+    if (remaining_volume > total_available_volume) {
+      cerr << "The volume needed is more than the volume you have inside your empty tanks" << endl;
+      return 1;
+    }
+
+    for (int j = 0; j < cuves.size() && remaining_volume > 0; j++) {
+      if (cuves_volumes[j][i] > 0 && cuves[j].vins_contenu[0] == "/") {
+        double volume_to_use = min(remaining_volume, cuves_volumes[j][i]);
+        cuves_to_use[i].push_back(j);
+        remaining_volume -= volume_to_use;
+        total_volumes[vins[i]] += volume_to_use;
+      }
+    }
+  }
+
+  // Calculate total cuves volume for each wine
+  for (int i = 0; i < vins.size(); i++) {
+    double total_cuves_volume = 0;
+    for (int j = 0; j < cuves.size(); j++) {
+      if (find(cuves[j].vins_contenu.begin(), cuves[j].vins_contenu.end(), vins[i]) != cuves[j].vins_contenu.end()) {
+        total_cuves_volume += cuves[j].quantite;
+      }
+    }
+
+    cout << "Total volume for " << vins[i] << ": " << total_cuves_volume << endl;
+    double required_volume = 0;
 for (int j = 0; j < cuves_to_use[i].size(); j++) {
-int cuve_index = cuves_to_use[i][j];
-cout << "- Cuve " << cuves[cuve_index].number << " (" << cuves_volumes[cuve_index][i] << "hL)" << endl;
-}
+  int cuve_index = cuves_to_use[i][j];
+  required_volume += cuves_volumes[cuve_index][i];
 }
 
-return 0;
+cout << "Required volume for " << vins[i] << ": " << required_volume << "hL" << endl;
+
+    if (total_cuves_volume < required_volumes[i]) {
+      cerr << "The volume of " << vins[i] << " is not sufficient in all cuves for the mix" << endl;
+      return 1;
+    }
+    double remaining_volume = total_cuves_volume;
+for (int j = 0; j < cuves_to_use[i].size(); j++) {
+  int cuve_index = cuves_to_use[i][j];
+  remaining_volume -= cuves_volumes[cuve_index][i];
+}
+
+    if (remaining_volume < 0){
+      cout << "Impossible to use " << vins[i] << " you need " << abs(remaining_volume) << " hL more" <<endl;
+    }
+    else{
+    cout << "Remaining volume for " << vins[i] << ": " << remaining_volume << endl;
+    }
+  }
+    
+  
+
+
+  // Output cuves to use for each wine
+  for (int i = 0; i < vins.size(); i++) {
+    cout << "For wine " << vins[i] << ":" << endl;
+    for (int j = 0; j < cuves_to_use[i].size(); j++) {
+      int cuve_index = cuves_to_use[i][j];
+      cout << "- Cuve " << cuves[cuve_index].number << " (" << cuves_volumes[cuve_index][i] << "hL)" << endl;
+    }
+  }
+    
+  
+// Calculate and display total volume for all wines used
+  double total_volume_all_wines = 0;
+  for (int i = 0; i < vins.size(); i++) {
+    for (int j = 0; j < cuves_to_use[i].size(); j++) {
+      int cuve_index = cuves_to_use[i][j];
+      total_volume_all_wines += cuves_volumes[cuve_index][i];
+    }
+  }
+  cout << "Total volume for all wines used: " << total_volume_all_wines << "hL" << endl;
+
+
+  return 0;
 }
