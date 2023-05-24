@@ -19,48 +19,90 @@ int main() {
   cout << "Drag and drop your config file here and press Enter:" << endl;
   getline(cin, config_file_path);
 
-  // Remove apostrophes from file path
+  // Remove apostrophes from file
   config_file_path.erase(remove(config_file_path.begin(), config_file_path.end(), '\''), config_file_path.end());
 
-  cout << "Reading config file: " << config_file_path << endl;
+ 
 
+  
   ifstream config_file(config_file_path);
-
   if (!config_file.is_open()) {
-    cerr << "Could not open config file: " << config_file_path << endl;
+    cerr << "Impossible to open the config file selected or you have forgot to drag and drop it" << config_file_path << endl;
     return 1;
+  }
+  else {
+     cout << "Reading config file: " << config_file_path << endl;
+     
   }
 
   vector<Cuve> cuves;
   vector<string> vins;
   vector<double> pourcentages;
   vector<int> quantites;
+  vector<int> cuves_invalides;
+  
+
+  
 
   string line;
   while (getline(config_file, line)) {
     if (line.empty() || line[0] == '!' || line[0] == '\r') {
       continue; // ignore empty lines and comments starting with '!'
-    }
-    else if (line[0] == '#') {
+    } else if (line[0] == '#') {
       size_t pos1 = line.find(';');
       size_t pos2 = line.find(';', pos1 + 1);
+    
       if (pos1 != string::npos && pos2 != string::npos) {
         Cuve cuve;
         cuve.number = line.substr(1, pos1 - 1);
         cuve.quantite = stoi(line.substr(pos1 + 1, pos2 - pos1 - 1));
+         if (cuve.quantite <= 0) {
+        cuves_invalides.push_back(cuves.size()); // Ajoute l'indice de la cuve invalide
+  }
         cuve.vins_contenu.push_back(line.substr(pos2 + 1));
         cuves.push_back(cuve);
+      
       }
-    }
-    else if (isdigit(line[0])) {
+
+    } else if (isdigit(line[0])) {
       quantites.push_back(stoi(line));
-    }
-    else {
+    } else {
       size_t pos = line.find(';');
       if (pos != string::npos) {
-        vins.push_back(line.substr(0, pos));
-        pourcentages.push_back(stod(line.substr(pos + 1)));
+        string vin = line.substr(0, pos);
+
+    bool vin_existe = false;
+    for (const string& existing_vin : vins) {
+      if (existing_vin == vin) {
+        vin_existe = true;
+        break;
       }
+    }
+     if (!vin_existe) {
+      // Le nom de vin n'a pas encore été rencontré, l'ajouter à la liste vins
+      vins.push_back(vin);
+      pourcentages.push_back(stod(line.substr(pos + 1)));
+    }
+      }
+    }
+  }
+  if (!cuves_invalides.empty()) {
+  cerr << "Error: Invalid cuve volume for cuves: ";
+  for (int index : cuves_invalides) {
+    cerr << cuves[index].number << ";";
+  }
+  cerr << endl;
+  return 1;
+}
+  if (cuves.empty() || vins.empty() || pourcentages.empty() || quantites.empty()) {
+  cerr << "Error: Missing information in the config file" << endl;
+  return 1;
+}
+  // Check for negative percentages
+  for (double pourcentage : pourcentages) {
+    if (pourcentage < 0) {
+      cerr << "Error: Negative percentage values are not allowed." << endl;
+      return 1;
     }
   }
 
@@ -118,10 +160,7 @@ int main() {
     required_volumes[i] = total_volume * pourcentages[i] / 100;
   }
 
-  // Sort cuves by descending volume
-  sort(cuves.begin(), cuves.end(), [](const Cuve& cuve1, const Cuve& cuve2) {
-    return cuve1.quantite > cuve2.quantite;
-  });
+  
 
   // Calculate volumes of each wine in each cuve
   vector<vector<double>> cuves_volumes(cuves.size(), vector<double>(vins.size(), 0));
@@ -159,6 +198,30 @@ int main() {
     }
   }
 
+  // Check if the volume used exceeds the desired total volume and remove the last cuve if necessary
+  double total_used_volume = 0;
+  for (int i = 0; i < vins.size(); i++) {
+    for (int j = 0; j < cuves_to_use[i].size(); j++) {
+      int cuve_index = cuves_to_use[i][j];
+      total_used_volume += cuves_volumes[cuve_index][i];
+    }
+  }
+
+  if (total_used_volume > total_volume) {
+  for (int i = 0; i < vins.size(); i++) {
+    while (total_used_volume > total_volume && !cuves_to_use[i].empty()) {
+      int last_cuve_index = cuves_to_use[i].back();
+      double last_cuve_volume = cuves_volumes[last_cuve_index][i];
+      for (int i = 0; i < vins.size(); i++) {
+      cuves_to_use[i].pop_back();
+      total_used_volume -= last_cuve_volume;
+    }
+    }
+  }
+  }
+
+    
+
   // Calculate total cuves volume for each wine
   for (int i = 0; i < vins.size(); i++) {
     double total_cuves_volume = 0;
@@ -170,45 +233,43 @@ int main() {
 
     cout << "Total volume for " << vins[i] << ": " << total_cuves_volume << endl;
     double required_volume = 0;
-for (int j = 0; j < cuves_to_use[i].size(); j++) {
-  int cuve_index = cuves_to_use[i][j];
-  required_volume += cuves_volumes[cuve_index][i];
-}
+    for (int j = 0; j < cuves_to_use[i].size(); j++) {
+      int cuve_index = cuves_to_use[i][j];
+      required_volume += cuves_volumes[cuve_index][i];
+    }
 
-cout << "Required volume for " << vins[i] << ": " << required_volume << "hL" << endl;
+    cout << "Required volume for " << vins[i] << ": " << required_volume << "hL" << endl;
 
     if (total_cuves_volume < required_volumes[i]) {
       cerr << "The volume of " << vins[i] << " is not sufficient in all cuves for the mix" << endl;
       return 1;
     }
-    double remaining_volume = total_cuves_volume;
-for (int j = 0; j < cuves_to_use[i].size(); j++) {
-  int cuve_index = cuves_to_use[i][j];
-  remaining_volume -= cuves_volumes[cuve_index][i];
-}
 
-    if (remaining_volume < 0){
-      cout << "Impossible to use " << vins[i] << " you need " << abs(remaining_volume) << " hL more" <<endl;
+    double remaining_volume = total_cuves_volume;
+    for (int j = 0; j < cuves_to_use[i].size(); j++) {
+      int cuve_index = cuves_to_use[i][j];
+      remaining_volume -= cuves_volumes[cuve_index][i];
     }
-    else{
-    cout << "Remaining volume for " << vins[i] << ": " << remaining_volume << endl;
+
+    if (remaining_volume < 0) {
+      cout << "Impossible to use " << vins[i] << " you need " << abs(remaining_volume) << " hL more" << endl;
+    } else {
+      cout << "Remaining volume for " << vins[i] << ": " << remaining_volume << endl;
     }
   }
-    
-  
-
 
   // Output cuves to use for each wine
   for (int i = 0; i < vins.size(); i++) {
     cout << "For wine " << vins[i] << ":" << endl;
     for (int j = 0; j < cuves_to_use[i].size(); j++) {
       int cuve_index = cuves_to_use[i][j];
+
       cout << "- Cuve " << cuves[cuve_index].number << " (" << cuves_volumes[cuve_index][i] << "hL)" << endl;
     }
-  }
     
-  
-// Calculate and display total volume for all wines used
+  }
+
+  // Calculate and display total volume for all wines used
   double total_volume_all_wines = 0;
   for (int i = 0; i < vins.size(); i++) {
     for (int j = 0; j < cuves_to_use[i].size(); j++) {
@@ -216,8 +277,7 @@ for (int j = 0; j < cuves_to_use[i].size(); j++) {
       total_volume_all_wines += cuves_volumes[cuve_index][i];
     }
   }
+
   cout << "Total volume for all wines used: " << total_volume_all_wines << "hL" << endl;
-
-
   return 0;
 }
