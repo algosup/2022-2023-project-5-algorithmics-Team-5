@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <unordered_map>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ struct Cuve {
   string number;
   int quantite;
   vector<string> vins_contenu;
+  vector<double>volumeUtilise;
 };
 
 int main() {
@@ -40,6 +42,7 @@ int main() {
   vector<double> pourcentages;
   vector<int> quantites;
   vector<int> cuves_invalides;
+  
   
 
   
@@ -163,7 +166,7 @@ int main() {
   
 
   // Calculate volumes of each wine in each cuve
-  vector<vector<double>> cuves_volumes(cuves.size(), vector<double>(vins.size(), 0));
+  vector<vector<double> > cuves_volumes(cuves.size(), vector<double>(vins.size(), 0));
   for (int i = 0; i < cuves.size(); i++) {
     for (int j = 0; j < vins.size(); j++) {
       cuves_volumes[i][j] = cuves[i].quantite * pourcentages[j] / 100;
@@ -171,12 +174,23 @@ int main() {
   }
 
   // Determine cuves to use for each wine
-  vector<vector<int>> cuves_to_use(vins.size(), vector<int>());
+  vector<vector<int> > cuves_to_use(vins.size(), vector<int>());
   map<string, double> total_volumes;
+  vector<double> remaining_volumes(vins.size());
 
+  for (int j = 0; j < vins.size(); j++) {
+  double volumeUtilise = 0;
+  for (int k = 0; k < cuves_to_use[j].size(); k++) {
+    int cuve_index = cuves_to_use[j][k];
+    volumeUtilise += cuves_volumes[cuve_index][j];
+  }
+  // Stocker le volume utilisé pour le vin dans la cuve correspondante
+  cuves[j].volumeUtilise.push_back(volumeUtilise);
+}
   for (int i = 0; i < vins.size(); i++) {
     double remaining_volume = required_volumes[i];
-    double total_available_volume = 0; // Total volume available in cuves without wine
+    double total_available_volume = 0;// Total volume available in cuves without wine
+    
     for (int j = 0; j < cuves.size() && remaining_volume > 0; j++) {
       if (cuves_volumes[j][i] > 0 && cuves[j].vins_contenu[0] == "/") {
         total_available_volume += cuves_volumes[j][i];
@@ -236,6 +250,7 @@ int main() {
     for (int j = 0; j < cuves_to_use[i].size(); j++) {
       int cuve_index = cuves_to_use[i][j];
       required_volume += cuves_volumes[cuve_index][i];
+      remaining_volumes[i] = required_volumes[i];
     }
 
     cout << "Required volume for " << vins[i] << ": " << required_volume << "hL" << endl;
@@ -259,15 +274,15 @@ int main() {
   }
 
   // Output cuves to use for each wine
-  for (int i = 0; i < vins.size(); i++) {
-    cout << "For wine " << vins[i] << ":" << endl;
-    for (int j = 0; j < cuves_to_use[i].size(); j++) {
-      int cuve_index = cuves_to_use[i][j];
-
-      cout << "- Cuve " << cuves[cuve_index].number << " (" << cuves_volumes[cuve_index][i] << "hL)" << endl;
-    }
-    
-  }
+for (int i = 0; i < vins.size(); i++) {
+  cout << "For wine " << vins[i] << ":" << endl;
+  for (int j = 0; j < cuves_to_use[i].size(); j++) {
+    int cuve_index = cuves_to_use[i][j];
+    cuves[cuve_index].vins_contenu[0] = "Champagne";  // Modification du nom du vin de "/" à "Champagne"
+    cout << "- Cuve " << cuves[cuve_index].number << " (" << cuves_volumes[cuve_index][i] << "hL)" << endl;
+    cout << "  - " << cuves[cuve_index].vins_contenu[0] << endl;  // Affichage du nom "Champagne"
+  }  
+}
 
   // Calculate and display total volume for all wines used
   double total_volume_all_wines = 0;
@@ -277,7 +292,43 @@ int main() {
       total_volume_all_wines += cuves_volumes[cuve_index][i];
     }
   }
+  cout << "Total volume for all wines: " << total_volume_all_wines << "hL" << endl;
 
-  cout << "Total volume for all wines used: " << total_volume_all_wines << "hL" << endl;
+ cout << "Summary:" << endl;
+  cout << "--------" << endl;
+  
+
+
+
+// Calcul du volume total utilisé pour chaque vin
+vector<double> volumesUtilises(vins.size(), 0.0);
+for (int i = 0; i < vins.size(); i++) {
+  for (int j = 0; j < cuves_to_use[i].size(); j++) {
+    int cuve_index = cuves_to_use[i][j];
+    volumesUtilises[i] += cuves_volumes[cuve_index][i];
+  }
+}
+
+// Affichage du volume utilisé et restant pour chaque vin dans chaque cuve
+for (int i = 0; i < cuves.size(); i++) {
+  Cuve& cuve = cuves[i];
+  if (cuve.vins_contenu[0] != "/"){
+  cout << "Cuve " << cuve.number << ": " << cuve.quantite << "hL" << endl;
+  }
+  else{
+    cuve.quantite = 0; 
+    cout << "Cuve " << cuve.number << ": " << cuve.quantite << "hL  (Cuve disponible au remplissage)" << endl;
+  }
+  for (int j = 0; j < vins.size(); j++) {
+    if (find(cuve.vins_contenu.begin(), cuve.vins_contenu.end(), vins[j]) != cuve.vins_contenu.end()) {
+      double volumeUtilise = min(volumesUtilises[j], static_cast<double>(cuve.quantite));
+      double volumeRestant = max(cuve.quantite - volumeUtilise, 0.0);
+
+      cout << "Volume utilisé pour " << vins[j] << " dans cette cuve : " << volumeUtilise << "hL" << endl;
+      cout << "Volume restant pour " << vins[j] << " dans cette cuve : " << volumeRestant << "hL" << endl;
+      volumesUtilises[j] -= volumeUtilise;
+    }
+  }
+}
   return 0;
 }
