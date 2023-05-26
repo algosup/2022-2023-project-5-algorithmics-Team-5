@@ -102,12 +102,24 @@ int main() {
   return 1;
 }
   // Check for negative percentages
-  for (double pourcentage : pourcentages) {
-    if (pourcentage < 0) {
-      cerr << "Error: Negative percentage values are not allowed." << endl;
-      return 1;
-    }
+double total_percentage = 0.0;
+for (double pourcentage : pourcentages) {
+  if (pourcentage <= 0) {
+    cerr << "Error: Negative percentage values are not allowed." << endl;
+    return 1;
   }
+  total_percentage += pourcentage;
+}
+
+if (total_percentage < 100.0) {
+  cerr << "Error: Total percentage is less than 100. Required: " << (100.0 - total_percentage) << " more." << endl;
+  return 1;
+}
+
+if (total_percentage > 100.0) {
+  cerr << "Error: Total percentage exceeds 100. Required: " << (total_percentage - 100.0) << " less." << endl;
+  return 1;
+}
 
   for (auto& cuve : cuves) {
     for (int i = 0; i < vins.size(); i++) {
@@ -267,7 +279,7 @@ int main() {
     }
 
     if (remaining_volume < 0) {
-      cout << "Impossible to use " << vins[i] << " you need " << abs(remaining_volume) << " hL more" << endl;
+      cout << "Impossible to use " << vins[i] << " you need " << (remaining_volume) << " hL more" << endl;
     } else {
       cout << "Remaining volume for " << vins[i] << ": " << remaining_volume << endl;
     }
