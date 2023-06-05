@@ -13,6 +13,14 @@ struct Cuve {
   int quantite;
   vector<string> vins_contenu;
   vector<double>volumeUtilise;
+  bool aSubiTransfert;
+};
+
+// Structure pour stocker les volumes restants pour chaque vin dans chaque cuve
+struct VolumeRestant {
+  string vin;
+  double volume;
+  int cuveIndex;
 };
 
 int main() {
@@ -42,11 +50,10 @@ int main() {
   vector<double> pourcentages;
   vector<int> quantites;
   vector<int> cuves_invalides;
-  
-  
-
+  vector<VolumeRestant> volumesRestants;
   
 
+  
   string line;
   while (getline(config_file, line)) {
     if (line.empty() || line[0] == '!' || line[0] == '\r') {
@@ -292,7 +299,6 @@ for (int i = 0; i < vins.size(); i++) {
     int cuve_index = cuves_to_use[i][j];
     cuves[cuve_index].vins_contenu[0] = "Champagne";  // Modification du nom du vin de "/" à "Champagne"
     cout << "- Cuve " << cuves[cuve_index].number << " (" << cuves_volumes[cuve_index][i] << "hL)" << endl;
-    cout << "  - " << cuves[cuve_index].vins_contenu[0] << endl;  // Affichage du nom "Champagne"
   }  
 }
 
@@ -309,9 +315,6 @@ for (int i = 0; i < vins.size(); i++) {
  cout << "Summary:" << endl;
   cout << "--------" << endl;
   
-
-
-
 // Calcul du volume total utilisé pour chaque vin
 vector<double> volumesUtilises(vins.size(), 0.0);
 for (int i = 0; i < vins.size(); i++) {
@@ -324,12 +327,10 @@ for (int i = 0; i < vins.size(); i++) {
 // Affichage du volume utilisé et restant pour chaque vin dans chaque cuve
 for (int i = 0; i < cuves.size(); i++) {
   Cuve& cuve = cuves[i];
-  if (cuve.vins_contenu[0] != "/"){
-  cout << "Cuve " << cuve.number << ": " << cuve.quantite << "hL" << endl;
-  }
-  else{
-    cuve.quantite = 0; 
-    cout << "Cuve " << cuve.number << ": " << cuve.quantite << "hL  (Cuve disponible au remplissage)" << endl;
+  if (cuve.vins_contenu[0] != "/") {
+    cout << "Cuve " << cuve.number << ": " << cuve.quantite << "hL" << endl;
+  } else {
+    cout << "Cuve " << cuve.number << ": " << cuve.quantite - cuve.quantite << "hL  (Cuve disponible au remplissage)" << endl;
   }
   for (int j = 0; j < vins.size(); j++) {
     if (find(cuve.vins_contenu.begin(), cuve.vins_contenu.end(), vins[j]) != cuve.vins_contenu.end()) {
@@ -337,9 +338,83 @@ for (int i = 0; i < cuves.size(); i++) {
       double volumeRestant = max(cuve.quantite - volumeUtilise, 0.0);
 
       cout << "Volume utilisé pour " << vins[j] << " dans cette cuve : " << volumeUtilise << "hL" << endl;
-      cout << "Volume restant pour " << vins[j] << " dans cette cuve : " << volumeRestant << "hL" << endl;
+      if (volumeRestant == 0) {
+        cout << "Volume restant pour " << vins[j] << " dans cette cuve : " << volumeRestant << "hL  (Cuve disponible au remplissage)" << endl;
+        cuve.quantite = 0;
+        cuve.vins_contenu[0] = "/";
+      } else {
+        cout << "Volume restant pour " << vins[j] << " dans cette cuve : " << volumeRestant << "hL" << endl;
+        cuve.quantite = volumeRestant;
+      }
       volumesUtilises[j] -= volumeUtilise;
+
+      // Stockage du volume restant pour chaque vin et chaque cuve
+      VolumeRestant volume;
+      volume.vin = vins[j];
+      volume.cuveIndex = i;
+      volume.volume = volumeRestant;
+      volumesRestants.push_back(volume);
     }
+  }
+}
+
+for (int i = 0; i < cuves.size(); i++) {
+  Cuve& cuve = cuves[i];
+
+  // Vérification supplémentaire pour exclure les cuves ayant déjà subi un transfert
+  if (cuve.vins_contenu[0] != "/" && cuve.quantite > 0 && cuve.vins_contenu[0] != "Champagne" && !cuve.aSubiTransfert) {
+    cout << "Cuve " << cuve.number << " - Vin restant : " << cuve.vins_contenu[0] << endl;
+    
+    // Recherche du volume restant correspondant pour ce vin et cette cuve
+    double volumeRestant = 0.0;
+    for (int j = 0; j < volumesRestants.size(); j++) {
+      if (volumesRestants[j].vin == cuve.vins_contenu[0] && volumesRestants[j].cuveIndex == i) {
+        volumeRestant = volumesRestants[j].volume;
+        break;
+      }
+    }
+    
+    cout << "Volume restant pour ce vin : " << volumeRestant << "hL" << endl;
+    cout << "Recherche d'une cuve vide avec le même volume pour le transfert..." << endl;
+
+    bool transfertEffectue = false; // Variable pour suivre si un transfert a été effectué
+    int meilleureCuveIndex = 0;
+    double meilleureCuveScore = std::numeric_limits<double>::max();// Initialiser avec une valeur maximale
+    double differenceMin = std::numeric_limits<double>::max(); // Initialiser avec une valeur maximale
+
+for (int j = 0; j < cuves.size(); j++) {
+  if (j != i && cuves[j].quantite <= volumeRestant && cuves[j].vins_contenu[0] == "/") {
+    // Calculer le score de la cuve j (meilleur score = meilleure cuve)
+    int score = cuves[j].quantite; // Score basé sur la quantité de vin dans la cuve
+
+  if (std::abs(score - volumeRestant) < differenceMin || (std::abs(score - volumeRestant) == differenceMin && score <= meilleureCuveScore)) {
+  meilleureCuveIndex = j;
+  meilleureCuveScore = score;
+  differenceMin = std::abs(score - volumeRestant);
+  cout << "Meilleure cuve trouvée : " << cuves[meilleureCuveIndex].number << endl;
+}
+  }
+}
+
+if (meilleureCuveIndex != -1) {
+  cuves[meilleureCuveIndex].vins_contenu[0] = cuve.vins_contenu[0];
+  cout << "Transfert de " << cuves[meilleureCuveIndex].quantite << "hL de " << cuve.vins_contenu[0] << " de la cuve " << cuve.number << " vers la cuve " << cuves[meilleureCuveIndex].number << endl;
+  cuve.aSubiTransfert = true;
+  cuves[meilleureCuveIndex].aSubiTransfert = true;
+  transfertEffectue = true;
+  cuve.quantite -= cuves[meilleureCuveIndex].quantite;
+  cout << volumeRestant << endl;
+} else {
+  cout << "Aucune cuve vide avec un volume suffisant n'a été trouvée. Le vin reste donc dans cette cuve." << endl;
+}
+
+// Affichage du volume restant de chaque cuve après le transfert
+cout << "Volume restant après transfert :" << endl;
+for (int i = 0; i < cuves.size(); i++) {
+  Cuve& cuve = cuves[i];
+  cout << "Cuve " << cuve.number << ": " << cuve.quantite << "hL" << endl;
+}
+
   }
 }
   return 0;
