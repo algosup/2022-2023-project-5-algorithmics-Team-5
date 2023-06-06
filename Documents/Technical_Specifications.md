@@ -117,7 +117,7 @@ To learn how to use Bazel with c++, you can follow this [tutorial](https://bazel
 
 #### **Architecture design**
 
-![architecture_design](/Documents/Image/Architecture_Design.png)
+![architecture_design](/Documents/Image/Architecture_Diagram.png)
 
 #### **Environment**
 
