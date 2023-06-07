@@ -23,14 +23,13 @@ struct VolumeRestant {
   double volume;
   int cuveIndex;
 };
-
 bool trouverCombinaisonCuves(vector<Cuve>& cuves, double volumeRestant, int index, vector<int>& cuvesUtilisees) {
-  if (volumeRestant == 0) {
+  if (std::abs(volumeRestant) <= 0.1) {
     return true;
   }
 
   for (int i = index; i < cuves.size(); i++) {
-    if (cuves[i].quantite <= volumeRestant && cuves[i].vins_contenu[0] == "/") {
+    if (cuves[i].quantite >= 0.01 && cuves[i].quantite <= volumeRestant && cuves[i].vins_contenu[0] == "/") {
       cuvesUtilisees.push_back(i);
 
       if (trouverCombinaisonCuves(cuves, volumeRestant - cuves[i].quantite, i + 1, cuvesUtilisees)) {
@@ -75,49 +74,49 @@ int main() {
   
 
   
-  string line;
-  while (getline(config_file, line)) {
-    if (line.empty() || line[0] == '!' || line[0] == '\r') {
-      continue; // ignore empty lines and comments starting with '!'
-    } else if (line[0] == '#') {
-      size_t pos1 = line.find(';');
-      size_t pos2 = line.find(';', pos1 + 1);
-    
-      if (pos1 != string::npos && pos2 != string::npos) {
-        Cuve cuve;
-        cuve.number = line.substr(1, pos1 - 1);
-        cuve.quantite = stoi(line.substr(pos1 + 1, pos2 - pos1 - 1));
-         if (cuve.quantite <= 0) {
+ string line;
+while (getline(config_file, line)) {
+  if (line.empty() || line[0] == '!' || line[0] == '\r') {
+    continue; // ignore empty lines and comments starting with '!'
+  } else if (line[0] == '#') {
+    size_t pos1 = line.find(';');
+    size_t pos2 = line.find(';', pos1 + 1);
+
+    if (pos1 != string::npos && pos2 != string::npos) {
+      Cuve cuve;
+      cuve.number = line.substr(1, pos1 - 1);
+      cuve.quantite = stod(line.substr(pos1 + 1, pos2 - pos1 - 1));
+      if (cuve.quantite <= 0) {
         cuves_invalides.push_back(cuves.size()); // Ajoute l'indice de la cuve invalide
-  }
-        cuve.vins_contenu.push_back(line.substr(pos2 + 1));
-        cuves.push_back(cuve);
-      
       }
+      cuve.vins_contenu.push_back(line.substr(pos2 + 1));
+      cuves.push_back(cuve);
 
-    } else if (isdigit(line[0])) {
-      quantites.push_back(stoi(line));
-    } else {
-      size_t pos = line.find(';');
-      if (pos != string::npos) {
-        string vin = line.substr(0, pos);
+    }
 
-    bool vin_existe = false;
-    for (const string& existing_vin : vins) {
-      if (existing_vin == vin) {
-        vin_existe = true;
-        break;
+  } else if (isdigit(line[0])) {
+    quantites.push_back(stoi(line));
+  } else {
+    size_t pos = line.find(';');
+    if (pos != string::npos) {
+      string vin = line.substr(0, pos);
+
+      bool vin_existe = false;
+      for (const string& existing_vin : vins) {
+        if (existing_vin == vin) {
+          vin_existe = true;
+          break;
+        }
       }
-    }
-     if (!vin_existe) {
-      // Le nom de vin n'a pas encore été rencontré, l'ajouter à la liste vins
-      vins.push_back(vin);
-      pourcentages.push_back(stod(line.substr(pos + 1)));
-    }
+      if (!vin_existe) {
+        // Le nom de vin n'a pas encore été rencontré, l'ajouter à la liste vins
+        vins.push_back(vin);
+        pourcentages.push_back(stod(line.substr(pos + 1)));
       }
     }
   }
-  if (!cuves_invalides.empty()) {
+}
+if (!cuves_invalides.empty()) {
   cerr << "Error: Invalid cuve volume for cuves: ";
   for (int index : cuves_invalides) {
     cerr << cuves[index].number << ";";
@@ -125,11 +124,11 @@ int main() {
   cerr << endl;
   return 1;
 }
-  if (cuves.empty() || vins.empty() || pourcentages.empty() || quantites.empty()) {
+if (cuves.empty() || vins.empty() || pourcentages.empty() || quantites.empty()) {
   cerr << "Error: Missing information in the config file" << endl;
   return 1;
 }
-  // Check for negative percentages
+// Check for negative percentages
 double total_percentage = 0.0;
 for (double pourcentage : pourcentages) {
   if (pourcentage <= 0) {
@@ -403,25 +402,26 @@ for (int i = 0; i < cuves.size(); i++) {
     int meilleureCuveIndex = -1;
     double meilleureCuveScore = std::numeric_limits<double>::max();
     double differenceMin = std::numeric_limits<double>::max();
+    double epsilon = 0.0001;
 
     for (int j = 0; j < cuves.size(); j++) {
       if (j != i && cuves[j].quantite <= volumeRestant && cuves[j].vins_contenu[0] == "/") {
-        int score = cuves[j].quantite;
-
-        if (std::abs(volumeRestant - score) == 0) {
+        double score = std::round(cuves[j].quantite * 10) / 10.0;
+        if (std::abs(volumeRestant - score) < epsilon) {     
           meilleureCuveIndex = j;
           meilleureCuveScore = score;
           differenceMin = std::abs(score - volumeRestant);
           cout << "Score : " << score << endl;
           cout << "Volume restant : " << volumeRestant << endl;
-          cout << volumeRestant - score << endl;
           cout << "Meilleure cuve trouvée : " << cuves[meilleureCuveIndex].number << endl;
+          
         }
       }
     }
 
     if (meilleureCuveIndex != -1) {
       cuves[meilleureCuveIndex].vins_contenu[0] = cuve.vins_contenu[0];
+      cuve.vins_contenu[0] = "/";
       cout << "Transfert de " << cuves[meilleureCuveIndex].quantite << "hL de " << cuve.vins_contenu[0] << " de la cuve " << cuve.number << " vers la cuve " << cuves[meilleureCuveIndex].number << endl;
       cuve.aSubiTransfert = true;
       cuves[meilleureCuveIndex].aSubiTransfert = true;
@@ -436,32 +436,44 @@ for (int i = 0; i < cuves.size(); i++) {
         cout << "Combinaison de cuves trouvée : " << endl;
 
         for (int index : cuvesUtilisees) {
-          if (cuves[index].quantite > 0) {
+          if (cuves[index].quantite > 0.1) {
+          double transfertVolume = std::min(cuves[index].quantite, volumeRestant); // Calcul du volume à transférer (minimum entre la quantité de la cuve et le volume restant)
+          double volumeArrondi = std::round(transfertVolume * 10) / 10.0;
+          if (volumeArrondi > 0.1) {
           cuves[index].vins_contenu[0] = cuve.vins_contenu[0];
+        
           cuves[index].aSubiTransfert = true;
-          cuve.quantite -= cuves[index].quantite;
-          if (cuves[index].quantite > 0) {
-          cout << "Transfert de " << cuves[index].quantite << "hL de " << cuve.vins_contenu[0] << " de la cuve " << cuve.number << " vers la cuve " << cuves[index].number << endl;
+          cuve.quantite -= volumeArrondi;
+         
+          cout << "Transfert de " << volumeArrondi << "hL de " << cuve.vins_contenu[0] << " de la cuve " << cuve.number << " vers la cuve " << cuves[index].number << endl;
+          
+         }
         }
         }
+        if (cuve.quantite < 0.001){
+          cuve.vins_contenu[0] = "/";
         }
-
         cout << endl;
-      } else {
+      } 
+      
+      
+      else {
         cout << "Aucune combinaison de cuves avec un volume suffisant n'a été trouvée. Le vin reste donc dans cette cuve." << endl;
       }
     }
+    }
   }
-}
+
 
 // Affichage du volume restant de chaque cuve après le transfert
 cout << "Volume restant après transfert :" << endl;
 for (int i = 0; i < cuves.size(); i++) {
   Cuve& cuve = cuves[i];
   if (cuve.vins_contenu[0] == "/") {
-  cout << "Cuve " << cuve.number << ": " << cuve.quantite-cuve.quantite << "hL" << endl;
+   double volume = cuve.quantite - cuve.quantite;
+  cout << "Cuve " << cuve.number << ": " << volume << "hL de " << cuve.vins_contenu[0] << endl;
   } else {
-  cout << "Cuve " << cuve.number << ": " << cuve.quantite << "hL" << endl;
+  cout << "Cuvea " << cuve.number << ": " << cuve.quantite << "hL de " << cuve.vins_contenu[0] << endl;
   }
 
 }
