@@ -27,16 +27,13 @@
 	- [Security Considerations](#security-considerations)
 	- [Privacy Considerations](#privacy-considerations)
 	- [Accessibility Considerations](#accessiblity-considerations)
-	- [Operational Considerations](#operational-considerations)
 	- [Risks](#risks)
 - [Success Evaluation](#success-eveluation)
 - [Work](#work)
-	- [Work Estimate And Timelines](#work-estimates-and-timelines)
 	- [Prioritization](#prioritization)
 	- [Milestones](#milestones)
 - [End Matter](#end-matter)
 	- [References](#references)
-	- [Acknoledgements](#acknowledgments)
 	- [Glossary](#glossary)
 
 </details>
