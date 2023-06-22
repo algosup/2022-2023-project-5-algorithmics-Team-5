@@ -15,70 +15,70 @@
 using namespace std;
 
 // Structure to store the tank information
-struct Cuve {
+struct Tank {
   string number;
-  double quantite;
-  vector<string> vins_contenu;
-  vector<double>volumeUtilise;
-  bool aSubiTransfert;
-  double capacite;
+  double quantity;
+  vector<string> wines_contenu;
+  vector<double>volumeuse;
+  bool aSubitransfer;
+  double capacity;
 };
 
 // Structure to store remaining volumes for each wine in each tank
-struct VolumeRestant {
-  string vin;
+struct volumeRemaining {
+  string wine;
   double volume;
-  int cuveIndex;
+  int tankIndex;
 };
 
 // Function to generate a key for the memoization
-std::string generateMemoKey(double volumeRestant, int index) {
-  return std::to_string(volumeRestant) + "_" + std::to_string(index);
+std::string generateMemoKey(double volumeRemaining, int index) {
+  return std::to_string(volumeRemaining) + "_" + std::to_string(index);
 }
 
 // Function to find the best combination of tanks to fill the remaining volume
-void trouverCombinaisonCuves(vector<Cuve>& cuves, double volumeRestant, vector<int>& meilleureCombinaison, double& meilleureDifference, vector<int>& combinaisonActuelle, int index, unordered_map<string, pair<double, vector<int>>>& memo) {
-  if (volumeRestant < 0.1) {
-    double difference = std::abs(volumeRestant);
-    if (difference < meilleureDifference) {
-      meilleureDifference = difference;
-      meilleureCombinaison = combinaisonActuelle;
+void trouverCombinaisontanks(vector<Tank>& tanks, double volumeRemaining, vector<int>& bestCombinaison, double& bestDifference, vector<int>& combinaisonActuelle, int index, unordered_map<string, pair<double, vector<int>>>& memo) {
+  if (volumeRemaining < 0.1) {
+    double difference = std::abs(volumeRemaining);
+    if (difference < bestDifference) {
+      bestDifference = difference;
+      bestCombinaison = combinaisonActuelle;
     }
     return;
   }
 
  // Check if the combination has already been evaluated
-  string memoKey = generateMemoKey(volumeRestant, index);
+  string memoKey = generateMemoKey(volumeRemaining, index);
   if (memo.find(memoKey) != memo.end()) {
     pair<double, vector<int>>& memoEntry = memo[memoKey];
-    if (memoEntry.first < meilleureDifference) {
-      meilleureDifference = memoEntry.first;
-      meilleureCombinaison = memoEntry.second;
+    if (memoEntry.first < bestDifference) {
+      bestDifference = memoEntry.first;
+      bestCombinaison = memoEntry.second;
     }
     return;
   }
   // Iterate over the tanks
-  for (int i = index; i < cuves.size(); i++) {
-    if (cuves[i].quantite >= 0.1 && cuves[i].vins_contenu[0] == "/" && std::find(meilleureCombinaison.begin(), meilleureCombinaison.end(), i) == meilleureCombinaison.end()) {
+  for (int i = index; i < tanks.size(); i++) {
+    if (tanks[i].quantity >= 0.1 && tanks[i].wines_contenu[0] == "/" && std::find(bestCombinaison.begin(), bestCombinaison.end(), i) == bestCombinaison.end()) {
       combinaisonActuelle.push_back(i);
 
-      trouverCombinaisonCuves(cuves, volumeRestant - cuves[i].quantite, meilleureCombinaison, meilleureDifference, combinaisonActuelle, i + 1, memo);
+      trouverCombinaisontanks(tanks, volumeRemaining - tanks[i].quantity, bestCombinaison, bestDifference, combinaisonActuelle, i + 1, memo);
 
       combinaisonActuelle.pop_back();
     }
   }
 
 // Save the evaluated combination in the memoization
-  memo[memoKey] = make_pair(meilleureDifference, meilleureCombinaison);
+  memo[memoKey] = make_pair(bestDifference, bestCombinaison);
 }
 
 // Function to find the best combination of tanks to fill the remaining volume
-bool trouverMeilleureCombinaisonCuves(vector<Cuve>& cuves, double volumeRestant, vector<int>& meilleureCombinaison, double& meilleureDifference) {
+bool trouverbestCombinaisontanks(vector<Tank>& tanks, double volumeRemaining, vector<int>& bestCombinaison, double& bestDifference) {
   vector<int> combinaisonActuelle;
   unordered_map<string, pair<double, vector<int>>> memo;
-  trouverCombinaisonCuves(cuves, volumeRestant, meilleureCombinaison, meilleureDifference, combinaisonActuelle, 0, memo);
+  trouverCombinaisontanks(tanks, volumeRemaining, bestCombinaison, bestDifference, combinaisonActuelle, 0, memo);
 
-  return (meilleureCombinaison.size() > 0);
+  return (bestCombinaison.size() > 0);
 }
 int main() {
   string config_file_path;
@@ -102,23 +102,23 @@ int main() {
      
   }
 
-  vector<Cuve> cuves;
-  vector<string> vins;
+  vector<Tank> tanks;
+  vector<string> wines;
   vector<double> pourcentages;
-  vector<double> quantites;
-  vector<int> cuves_invalides;
-  vector<VolumeRestant> volumesRestants;
+  vector<double> quantities;
+  vector<int> tanks_invalides;
+  vector<volumeRemaining> volumesRemainings;
   
 
-unordered_set<string> cuveIds;
+unordered_set<string> tankIds;
 string line;
-int cuveLineCount = 0; // Tank line counter
+int tankLineCount = 0; // Tank line counter
 
 std::string cheminAcces = "/Users/robindebry/Documents/GitHub/2022-2023-project-5-algorithmics-Team-5/output.txt";
-std::ofstream fichier(cheminAcces);
-if (fichier.is_open()) {
+std::ofstream folder(cheminAcces);
+if (folder.is_open()) {
 
-bool vinExiste = false;
+bool wineExiste = false;
 while (getline(config_file, line)) {
   if (line.empty() || line[0] == '!' || line[0] == '\r') {
     continue; // ignore empty lines and comments beginning with '!
@@ -127,87 +127,87 @@ while (getline(config_file, line)) {
     size_t pos2 = line.find(';', pos1 + 1);
 
     if (pos1 != string::npos && pos2 != string::npos) {
-      string cuveId = line.substr(1, pos1 - 1);
+      string tankId = line.substr(1, pos1 - 1);
 
       // Check if the tank ID has already been encountered
-      if (cuveIds.count(cuveId) > 0) {
-        cerr << "Error: Duplicate tank ID found: " << cuveId << endl;
+      if (tankIds.count(tankId) > 0) {
+        cerr << "Error: Duplicate tank ID found: " << tankId << endl;
         return 1;
       }
 
       // Check if the tank ID is valid
-      Cuve cuve;
-      cuve.number = cuveId;
-      cuve.quantite = stod(line.substr(pos1 + 1, pos2 - pos1 - 1));
-      cuve.capacite = stod(line.substr(pos1 + 1, pos2 - pos1 - 1));
-      if (cuve.quantite <= 0 || cuve.quantite > 1000) {
-        cerr << "Error: Invalid tank volume for tank " << cuve.number << ". Volume should be between 0 and 1000." << endl;
+      Tank tank;
+      tank.number = tankId;
+      tank.quantity = stod(line.substr(pos1 + 1, pos2 - pos1 - 1));
+      tank.capacity = stod(line.substr(pos1 + 1, pos2 - pos1 - 1));
+      if (tank.quantity <= 0 || tank.quantity > 1000) {
+        cerr << "Error: Invalid tank volume for tank " << tank.number << ". Volume should be between 0 and 1000." << endl;
         return 1;
       }
 
       // Check if a second tank quantity is entered
       size_t pos3 = line.find(';', pos2 + 1);
       if (pos3 != string::npos) {
-        cerr << "Error: Multiple tanks quantities specified for tank " << cuve.number << ". Only the first quantity will be considered." << endl;
+        cerr << "Error: Multiple tanks quantities specified for tank " << tank.number << ". Only the first quantity will be considered." << endl;
         return 1;
       }
 
-      string cuve_vin = line.substr(pos2 + 1, pos3 - pos2 - 1);
-      string vin;
+      string tank_wine = line.substr(pos2 + 1, pos3 - pos2 - 1);
+      string wine;
       bool found = false;
 
       // Check that the wine name matches exactly one of the wines in the list
-      if (cuve_vin == "champagne" || cuve_vin == "/" || cuve_vin == "Champagne") {
-        vin = cuve_vin;
+      if (tank_wine == "champagne" || tank_wine == "/" || tank_wine == "Champagne") {
+        wine = tank_wine;
         found = true;
       } else {
-        for (const string& existing_vin : vins) {
-          if (existing_vin == cuve_vin) {
+        for (const string& existing_wine : wines) {
+          if (existing_wine == tank_wine) {
             found = true;
-            vin = existing_vin;
+            wine = existing_wine;
             break;
           }
         }
       }
       // If the wine name is not found, throw an error
       if (!found) {
-        cerr << "Error: Unknown wine specified in the tank: " << cuve_vin << endl;
+        cerr << "Error: Unknown wine specified in the tank: " << tank_wine << endl;
         return 1;
       }
 
-      cuve.vins_contenu.push_back(vin);
-      cuves.push_back(cuve);
+      tank.wines_contenu.push_back(wine);
+      tanks.push_back(tank);
 
       // Add tank ID to all IDs encountered
-      cuveIds.insert(cuveId);
+      tankIds.insert(tankId);
 
-      cuveLineCount++;
+      tankLineCount++;
     }
   } 
   else if (isdigit(line[0])) {
-    quantites.push_back(stoi(line));
-    if (quantites.size() >= 2) {
+    quantities.push_back(stoi(line));
+    if (quantities.size() >= 2) {
       cerr << "Warning: Only the first quantity value will be considered. Ignoring additional values." << endl;
       return 1;
     }
   } else {
     size_t pos = line.find(';');
     if (pos != string::npos) {
-      string vin = line.substr(0, pos);
+      string wine = line.substr(0, pos);
 
-      bool vin_existe = false;
-      for (const string& existing_vin : vins) {
-        if (existing_vin == vin) {
-          vin_existe = true;
+      bool wine_existe = false;
+      for (const string& existing_wine : wines) {
+        if (existing_wine == wine) {
+          wine_existe = true;
           break;
         }
       }
-      if (!vin_existe) {
+      if (!wine_existe) {
         // The wine name has not yet been encountered, add it to the wines list
-        vins.push_back(vin);
+        wines.push_back(wine);
         pourcentages.push_back(stod(line.substr(pos + 1)));
       } else {
-        cerr << "Error: Duplicate wine name found: " << vin << endl;
+        cerr << "Error: Duplicate wine name found: " << wine << endl;
         return 1;
       }
     }
@@ -215,7 +215,7 @@ while (getline(config_file, line)) {
 }
 
 // Check that all required information is present
-if (cuves.empty() || vins.empty() || pourcentages.empty() || quantites.empty()) {
+if (tanks.empty() || wines.empty() || pourcentages.empty() || quantities.empty()) {
   cerr << "Error: Missing information in the config file" << endl;
   return 1;
 }
@@ -240,27 +240,27 @@ if (total_percentage > 100.0) {
   return 1;
 }
 
-for (auto& cuve : cuves) {
+for (auto& tank : tanks) {
   // Check if volume exceeds 1000
-  if (cuve.quantite > 1000) {
-    cerr << "Error: Volume exceeds the maximum limit of 1000 for tank " << cuve.number << endl;
+  if (tank.quantity > 1000) {
+    cerr << "Error: Volume exceeds the maximum limit of 1000 for tank " << tank.number << endl;
     return 1;
   }
 
-  for (int i = 0; i < vins.size(); i++) {
-    if (find(cuve.vins_contenu.begin(), cuve.vins_contenu.end(), vins[i]) != cuve.vins_contenu.end()) {
+  for (int i = 0; i < wines.size(); i++) {
+    if (find(tank.wines_contenu.begin(), tank.wines_contenu.end(), wines[i]) != tank.wines_contenu.end()) {
       continue;
     }
-    if (pourcentages[i] <= ((double)cuve.quantite / 100.0)) {
-      cuve.vins_contenu.push_back(vins[i]);
-      cuve.quantite -= pourcentages[i] * 100.0;
+    if (pourcentages[i] <= ((double)tank.quantity / 100.0)) {
+      tank.wines_contenu.push_back(wines[i]);
+      tank.quantity -= pourcentages[i] * 100.0;
     }
   }
 }
 
   cout << "Wine: " << endl;
-  for (const string& vin : vins) {
-    cout << vin << endl;
+  for (const string& wine : wines) {
+    cout << wine << endl;
   }
 
   cout << "Percentage: " << endl;
@@ -269,42 +269,42 @@ for (auto& cuve : cuves) {
   }
 
   cout << "Quantity needed: " << endl;
-  for (double quantite : quantites) {
-    cout << quantite << "hL" << endl;
+  for (double quantity : quantities) {
+    cout << quantity << "hL" << endl;
   }
 
   // Calculate total volume of wine needed
 double total_volume = 0;
-for (int quantite : quantites) {
-  total_volume += quantite;
+for (int quantity : quantities) {
+  total_volume += quantity;
 }
 
 // Calculate required volumes for each wine
-vector<double> required_volumes(vins.size());
-for (int i = 0; i < vins.size(); i++) {
+vector<double> required_volumes(wines.size());
+for (int i = 0; i < wines.size(); i++) {
   required_volumes[i] = total_volume * pourcentages[i] / 100;
 }
 
-// Calculate volumes of each wine in each cuve
-vector<vector<double>> cuves_volumes(cuves.size(), vector<double>(vins.size(), 0));
-for (int i = 0; i < cuves.size(); i++) {
-  for (int j = 0; j < vins.size(); j++) {
-    cuves_volumes[i][j] = cuves[i].quantite * pourcentages[j] / 100;
+// Calculate volumes of each wine in each tank
+vector<vector<double>> tanks_volumes(tanks.size(), vector<double>(wines.size(), 0));
+for (int i = 0; i < tanks.size(); i++) {
+  for (int j = 0; j < wines.size(); j++) {
+    tanks_volumes[i][j] = tanks[i].quantity * pourcentages[j] / 100;
   }
 }
 
 // Determine tanks to use for each wine
-vector<vector<int>> cuves_to_use(vins.size(), vector<int>());
+vector<vector<int>> tanks_to_use(wines.size(), vector<int>());
 map<string, double> total_volumes;
-vector<double> remaining_volumes(vins.size());
+vector<double> remaining_volumes(wines.size());
 
-for (int i = 0; i < vins.size(); i++) {
+for (int i = 0; i < wines.size(); i++) {
   double remaining_volume = required_volumes[i];
   double total_available_volume = 0; // Total volume available in tanks without wine
 
-  for (int j = 0; j < cuves.size() && remaining_volume > 0; j++) {
-    if (cuves_volumes[j][i] > 0 && cuves[j].vins_contenu[0] == "/") {
-      total_available_volume += cuves_volumes[j][i];
+  for (int j = 0; j < tanks.size() && remaining_volume > 0; j++) {
+    if (tanks_volumes[j][i] > 0 && tanks[j].wines_contenu[0] == "/") {
+      total_available_volume += tanks_volumes[j][i];
     }
   }
 
@@ -313,140 +313,140 @@ for (int i = 0; i < vins.size(); i++) {
     return 1;
   }
   // Calculate the remaining volume of wine needed
-  for (int j = 0; j < cuves.size() && remaining_volume > 0; j++) {
-    if (cuves_volumes[j][i] > 0 && cuves[j].vins_contenu[0] == "/") {
-      double volume_to_use = min(remaining_volume, cuves_volumes[j][i]);
-      cuves_to_use[i].push_back(j);
+  for (int j = 0; j < tanks.size() && remaining_volume > 0; j++) {
+    if (tanks_volumes[j][i] > 0 && tanks[j].wines_contenu[0] == "/") {
+      double volume_to_use = min(remaining_volume, tanks_volumes[j][i]);
+      tanks_to_use[i].push_back(j);
       remaining_volume -= volume_to_use;
-      total_volumes[vins[i]] += volume_to_use;
+      total_volumes[wines[i]] += volume_to_use;
     }
   }
 }
 
-// Check if the volume used exceeds the desired total volume and remove the last cuve if necessary
+// Check if the volume used exceeds the desired total volume and remove the last tank if necessary
 double total_used_volume = 0;
-for (int i = 0; i < vins.size(); i++) {
-  for (int j = 0; j < cuves_to_use[i].size(); j++) {
-    int cuve_index = cuves_to_use[i][j];
-    total_used_volume += cuves_volumes[cuve_index][i];
+for (int i = 0; i < wines.size(); i++) {
+  for (int j = 0; j < tanks_to_use[i].size(); j++) {
+    int tank_index = tanks_to_use[i][j];
+    total_used_volume += tanks_volumes[tank_index][i];
   }
 }
 
 if (total_used_volume > total_volume) {
-  for (int i = 0; i < vins.size(); i++) {
-    while (total_used_volume > total_volume && !cuves_to_use[i].empty()) {
-      int last_cuve_index = cuves_to_use[i].back();
-      double last_cuve_volume = cuves_volumes[last_cuve_index][i];
-      cuves_to_use[i].pop_back();
-      total_used_volume -= last_cuve_volume;
+  for (int i = 0; i < wines.size(); i++) {
+    while (total_used_volume > total_volume && !tanks_to_use[i].empty()) {
+      int last_tank_index = tanks_to_use[i].back();
+      double last_tank_volume = tanks_volumes[last_tank_index][i];
+      tanks_to_use[i].pop_back();
+      total_used_volume -= last_tank_volume;
     }
   }
 }
 
 // Calculate total tanks volume for each wine
-for (int i = 0; i < vins.size(); i++) {
-  double total_cuves_volume = 0;
+for (int i = 0; i < wines.size(); i++) {
+  double total_tanks_volume = 0;
   double required_volume = 0;
 
-  for (int j = 0; j < cuves.size(); j++) {
-    if (find(cuves[j].vins_contenu.begin(), cuves[j].vins_contenu.end(), vins[i]) != cuves[j].vins_contenu.end())
-      total_cuves_volume += cuves[j].quantite;
+  for (int j = 0; j < tanks.size(); j++) {
+    if (find(tanks[j].wines_contenu.begin(), tanks[j].wines_contenu.end(), wines[i]) != tanks[j].wines_contenu.end())
+      total_tanks_volume += tanks[j].quantity;
   }
 
   
-  for (int j = 0; j < cuves_to_use[i].size(); j++) {
-    int cuve_index = cuves_to_use[i][j];
-    required_volume += cuves_volumes[cuve_index][i];
+  for (int j = 0; j < tanks_to_use[i].size(); j++) {
+    int tank_index = tanks_to_use[i][j];
+    required_volume += tanks_volumes[tank_index][i];
     remaining_volumes[i] = required_volumes[i] - required_volume;
   }
 
-  cout << "Required volume for " << vins[i] << ": " << required_volume << "hL" << endl;
+  cout << "Required volume for " << wines[i] << ": " << required_volume << "hL" << endl;
 
-  if (total_cuves_volume < required_volume) {
-    cerr << "The volume of " << vins[i] << " is not sufficient in all tanks for the mix" << endl;
+  if (total_tanks_volume < required_volume) {
+    cerr << "The volume of " << wines[i] << " is not sufficient in all tanks for the mix" << endl;
     return 1;
   }
 
-  double remaining_volume = total_cuves_volume - required_volume;
+  double remaining_volume = total_tanks_volume - required_volume;
 
   if (remaining_volume < 0) {
-    cout << "Impossible to use " << vins[i] << " you need " << (-remaining_volume) << " hL more" << endl;
+    cout << "Impossible to use " << wines[i] << " you need " << (-remaining_volume) << " hL more" << endl;
   } else {
-    cout << "Remaining volume for " << vins[i] << ": " << remaining_volume << endl;
+    cout << "Remaining volume for " << wines[i] << ": " << remaining_volume << endl;
   }
 }
-fichier << "EN" << endl;
-fichier << "This is the output file of our solution. It contains the final formula applied, the quantities of leftovers, and all the steps taken to blend the wines in the tanks to achieve the desired mix." << endl;
-fichier << endl;
-fichier << "- The final formula has been adapted from the one given in the problem to reflect the reality of the tanks and the final mix." << endl;
-fichier << "- The leftovers are the quantities of wine remaining in the tanks after the final mix is complete and the tanks containing them." << endl;
-fichier << "- The steps are all the operations performed to achieve the final mix, and they are listed in order from first to last." << endl;
-fichier << endl;
-fichier << "------------" << endl;
-fichier << "------------" << endl;
-fichier << endl;
-fichier << "FR" << endl;
-fichier << "Ceci est le fichier de sortie de la solution." << endl; 
-fichier << "Il contient la formule finale appliquée, les quantités de restes et toutes les étapes pour mélanger les vins dans les cuves pour obtenir le mélange désiré." <<endl;
-fichier << endl;
-fichier << "- La formule finale est adaptée de celle donnée dans le problème à la réalité des cuves et du mélange final." << endl;
-fichier << "- Les restes sont les quantités de vin restant dans les cuves après que le mélange final soit fait et les cuves les contenant." << endl;
-fichier << "- Les étapes sont toutes les opérations effectuées pour obtenir le mélange final, elles sont ordonnées de la première à la dernière." << endl;
-fichier << endl;
-fichier << "------------" << endl;
-fichier << "------------" << endl;
-fichier << endl;
-std::vector<bool> cuves_deja_ecrites(cuves.size(), false); // Tableau pour suivre les cuves déjà écrites
-fichier << "FINAL FORMULA / FORMULE FINALE :" << std::endl;
+folder << "EN" << endl;
+folder << "This is the output file of our solution. It contains the final formula applied, the quantities of leftovers, and all the steps taken to blend the wines in the tanks to achieve the desired mix." << endl;
+folder << endl;
+folder << "- The final formula has been adapted from the one given in the problem to reflect the reality of the tanks and the final mix." << endl;
+folder << "- The leftovers are the quantities of wine remaining in the tanks after the final mix is complete and the tanks containing them." << endl;
+folder << "- The steps are all the operations performed to achieve the final mix, and they are listed in order from first to last." << endl;
+folder << endl;
+folder << "------------" << endl;
+folder << "------------" << endl;
+folder << endl;
+folder << "FR" << endl;
+folder << "Ceci est le folder de sortie de la solution." << endl; 
+folder << "Il contient la formule finale appliquée, les quantités de restes et toutes les étapes pour mélanger les vins dans les cuves pour obtenir le mélange désiré." <<endl;
+folder << endl;
+folder << "- La formule finale est adaptée de celle donnée dans le problème à la réalité des cuves et du mélange final." << endl;
+folder << "- Les restes sont les quantités de vin restant dans les cuves après que le mélange final soit fait et les cuves les contenant." << endl;
+folder << "- Les étapes sont toutes les opérations effectuées pour obtenir le mélange final, elles sont ordonnées de la première à la dernière." << endl;
+folder << endl;
+folder << "------------" << endl;
+folder << "------------" << endl;
+folder << endl;
+std::vector<bool> tanks_already_write(tanks.size(), false); // Tableau pour suivre les tanks déjà écrites
+folder << "FINAL FORMULA / FORMULE FINALE :" << std::endl;
 
-std::map<std::string, double> transferts_champagne;
+std::map<std::string, double> transfers_champagne;
 std::map<std::string, std::map<int, double>> volumes_transferes;
 
 // Write the final formula
-for (int i = 0; i < vins.size(); i++) {
-  fichier << std::endl;
-  fichier << "=============================================" << std::endl;
-  fichier << "For wine " << vins[i] << ":" << std::endl;
-  fichier << "=============================================" << std::endl;
+for (int i = 0; i < wines.size(); i++) {
+  folder << std::endl;
+  folder << "=============================================" << std::endl;
+  folder << "For wine " << wines[i] << ":" << std::endl;
+  folder << "=============================================" << std::endl;
 
-  std::map<int, bool> cuves_deja_ecrites;
+  std::map<int, bool> tanks_already_write;
 
-  for (int j = 0; j < cuves_to_use[i].size(); j++) {
-    int cuve_index = cuves_to_use[i][j];
-    cuves[cuve_index].vins_contenu[0] = "Champagne";  // Change wine name from "/" to "Champagne
+  for (int j = 0; j < tanks_to_use[i].size(); j++) {
+    int tank_index = tanks_to_use[i][j];
+    tanks[tank_index].wines_contenu[0] = "Champagne";  // Change wine name from "/" to "Champagne
 
     // Check if the tank has already been written
-    if (!cuves_deja_ecrites[cuve_index]) {
-      fichier << "Tank : " << cuves[cuve_index].number << std::endl;
-      cuves_deja_ecrites[cuve_index] = true; // Mark tank as already written
+    if (!tanks_already_write[tank_index]) {
+      folder << "Tank : " << tanks[tank_index].number << std::endl;
+      tanks_already_write[tank_index] = true; // Mark tank as already written
 
       // Display wine percentages in this tank
-      for (int k = 0; k < vins.size(); k++) {
-        double percentage = cuves_volumes[cuve_index][k] / cuves[cuve_index].quantite * 100;
-        double volume_equivalent = cuves_volumes[cuve_index][k];
-        fichier << vins[k] << ": " << percentage << "% (" << volume_equivalent << "hL)" << std::endl;
+      for (int k = 0; k < wines.size(); k++) {
+        double percentage = tanks_volumes[tank_index][k] / tanks[tank_index].quantity * 100;
+        double volume_equivalent = tanks_volumes[tank_index][k];
+        folder << wines[k] << ": " << percentage << "% (" << volume_equivalent << "hL)" << std::endl;
       }
 
       // Add filling steps
-      fichier << std::endl;
-      double volume_needed = cuves_volumes[cuve_index][i];
-      fichier << "Fill steps for tank " << cuves[cuve_index].number << " (" << vins[i] << "):" << std::endl;
+      folder << std::endl;
+      double volume_needed = tanks_volumes[tank_index][i];
+      folder << "Fill steps for tank " << tanks[tank_index].number << " (" << wines[i] << "):" << std::endl;
 
       double remaining_volume = volume_needed;
       bool transfer_done = false;
       int k = 0;
 
-      while (remaining_volume > 0 && k < cuves.size()) {
-        if (cuves[k].vins_contenu[0] == vins[i] && cuves[k].quantite > 0 && cuves[k].quantite >= 0.001) {
-          double available_volume = cuves[k].quantite;
+      while (remaining_volume > 0 && k < tanks.size()) {
+        if (tanks[k].wines_contenu[0] == wines[i] && tanks[k].quantity > 0 && tanks[k].quantity >= 0.001) {
+          double available_volume = tanks[k].quantity;
           double transfer_volume = std::min(remaining_volume, available_volume);
-          fichier << "  - Transfer " << transfer_volume << "hL from tank " << cuves[k].number << std::endl;
+          folder << "  - Transfer " << transfer_volume << "hL from tank " << tanks[k].number << std::endl;
           remaining_volume -= transfer_volume;
-          cuves[k].quantite -= transfer_volume;
+          tanks[k].quantity -= transfer_volume;
           transfer_done = true;
           // Check if the remaining volume in the tank is less than 0.001 and set it to 0
-          if (cuves_volumes[k][i] < 0.001) {
-            cuves_volumes[k][i] = 0.0;
+          if (tanks_volumes[k][i] < 0.001) {
+            tanks_volumes[k][i] = 0.0;
           }
         }
         k++;
@@ -454,11 +454,11 @@ for (int i = 0; i < vins.size(); i++) {
 
       // Check if the transfer is done
       if (remaining_volume > 0 && !transfer_done) {
-        fichier << "- Insufficient available volume in other tanks of the same wine to fulfill the requirement." << std::endl;
+        folder << "- Insufficient available volume in other tanks of the same wine to fulfill the requirement." << std::endl;
       } else if (remaining_volume > 0) {
-        fichier << "  - Additional volume needed from other sources: " << remaining_volume << "hL" << std::endl;
+        folder << "  - Additional volume needed from other sources: " << remaining_volume << "hL" << std::endl;
       } else {
-        fichier << endl;
+        folder << endl;
         
       }
     }
@@ -467,10 +467,10 @@ for (int i = 0; i < vins.size(); i++) {
 
 // Calculate and display total volume for all wines used
 double total_volume_all_wines = 0;
-for (int i = 0; i < vins.size(); i++) {
-  for (int j = 0; j < cuves_to_use[i].size(); j++) {
-    int cuve_index = cuves_to_use[i][j];
-    total_volume_all_wines += cuves_volumes[cuve_index][i];
+for (int i = 0; i < wines.size(); i++) {
+  for (int j = 0; j < tanks_to_use[i].size(); j++) {
+    int tank_index = tanks_to_use[i][j];
+    total_volume_all_wines += tanks_volumes[tank_index][i];
   }
 }
 std::cout << "Total volume for all wines: " << total_volume_all_wines << "hL" << std::endl;
@@ -480,122 +480,122 @@ std::cout << "Summary:" << std::endl;
 std::cout << "--------" << std::endl;
   
 // Calculation of total volume used for each wine
-vector<double> volumesUtilises(vins.size(), 0.0);
-for (int i = 0; i < cuves.size(); i++) {
-  Cuve& cuve = cuves[i];
-  for (int j = 0; j < vins.size(); j++) {
-    if (find(cuve.vins_contenu.begin(), cuve.vins_contenu.end(), vins[j]) != cuve.vins_contenu.end()) {
-      double volumeUtilise = min(volumesUtilises[j], static_cast<double>(cuve.quantite));
-      double volumeRestant = max(cuve.quantite - volumeUtilise, 0.0);
-      if (volumeRestant == 0) {
-        cuve.quantite = 0;
-        cuve.vins_contenu[0] = "/";
+vector<double> volumesuses(wines.size(), 0.0);
+for (int i = 0; i < tanks.size(); i++) {
+  Tank& tank = tanks[i];
+  for (int j = 0; j < wines.size(); j++) {
+    if (find(tank.wines_contenu.begin(), tank.wines_contenu.end(), wines[j]) != tank.wines_contenu.end()) {
+      double volumeuse = min(volumesuses[j], static_cast<double>(tank.quantity));
+      double volumeRemaining = max(tank.quantity - volumeuse, 0.0);
+      if (volumeRemaining == 0) {
+        tank.quantity = 0;
+        tank.wines_contenu[0] = "/";
       } else {
-        cuve.quantite = volumeRestant;
+        tank.quantity = volumeRemaining;
       }
-      volumesUtilises[j] -= volumeUtilise;
+      volumesuses[j] -= volumeuse;
 
       // Storage of the remaining volume for each wine and each tank
-      VolumeRestant volume;
-      volume.vin = vins[j];
-      volume.cuveIndex = i;
-      volume.volume = volumeRestant;
-      volumesRestants.push_back(volume);
+      struct volumeRemaining volume;
+      volume.wine = wines[j];
+      volume.tankIndex = i;
+      volume.volume = volumeRemaining;
+      volumesRemainings.push_back(volume);
     }
   }
 }
 
-fichier << endl;
-fichier << "------------" << endl;
-fichier << "------------" << endl;
-fichier << endl;
-fichier << "STEPS / ETAPES" << endl;
-fichier << endl;
-fichier << "The steps are indicated by the tank ID from which the wine is taken, the wine name, the quantity of wine taken from the tank, and the tank ID where the wine is placed." << endl;
-fichier << "Les étapes sont indiquées par l'ID de la cuve d'où le vin est pris, le nom du vin, la quantité de vin prise dans la cuve, et l'ID de la cuve où le vin est placé." << endl;
-fichier << endl;
+folder << endl;
+folder << "------------" << endl;
+folder << "------------" << endl;
+folder << endl;
+folder << "STEPS / ETAPES" << endl;
+folder << endl;
+folder << "The steps are indicated by the tank ID from which the wine is taken, the wine name, the quantity of wine taken from the tank, and the tank ID where the wine is placed." << endl;
+folder << "Les étapes sont indiquées par l'ID de la tank d'où le wine est pris, le nom du vin, la quantité de vin prise dans la cuve, et l'ID de la cuve où le vin est placé." << endl;
+folder << endl;
 
-for (int i = 0; i < cuves.size(); i++) {
-  Cuve& cuve = cuves[i];
+for (int i = 0; i < tanks.size(); i++) {
+  Tank& tank = tanks[i];
 
-  if (cuve.vins_contenu[0] != "/" && cuve.quantite > 0 && cuve.vins_contenu[0] != "Champagne" && cuve.vins_contenu[0] != "champagne" && cuve.vins_contenu[0] != "CHAMPAGNE" && !cuve.aSubiTransfert) {
-    cout << "Tank  " << cuve.number << " - Remaining wine :" << cuve.vins_contenu[0] << endl;
+  if (tank.wines_contenu[0] != "/" && tank.quantity > 0 && tank.wines_contenu[0] != "Champagne" && tank.wines_contenu[0] != "champagne" && tank.wines_contenu[0] != "CHAMPAGNE" && !tank.aSubitransfer) {
+    cout << "Tank  " << tank.number << " - Remaining wine :" << tank.wines_contenu[0] << endl;
 
-    double volumeRestant = 0.0;
-    for (int j = 0; j < volumesRestants.size(); j++) {
-      if (volumesRestants[j].vin == cuve.vins_contenu[0] && volumesRestants[j].cuveIndex == i) {
-        volumeRestant = volumesRestants[j].volume;
+    double volumeRemaining = 0.0;
+    for (int j = 0; j < volumesRemainings.size(); j++) {
+      if (volumesRemainings[j].wine == tank.wines_contenu[0] && volumesRemainings[j].tankIndex == i) {
+        volumeRemaining = volumesRemainings[j].volume;
         break;
       }
     }
-    cout << "Remaining volume for this wine : " << volumeRestant << "hL" << endl;
+    cout << "Remaining volume for this wine : " << volumeRemaining << "hL" << endl;
     cout << "Looking for an empty tank with the same volume for the transfer..." << endl;
 
       
 
-    int meilleureCuveIndex = -1;
-    double meilleureCuveScore = std::numeric_limits<double>::max();
+    int bestTankIndex = -1;
+    double bestTankscore = std::numeric_limits<double>::max();
     double differenceMin = std::numeric_limits<double>::max();
     double epsilon = 0.0001;
 
-    for (int j = 0; j < cuves.size(); j++) {
-      if (j != i && cuves[j].quantite <= volumeRestant && cuves[j].vins_contenu[0] == "/" && cuves[j].quantite < cuves[j].capacite) {
-        double score = std::round(cuves[j].quantite * 10) / 10.0;
-        if (std::abs(volumeRestant - score) < epsilon) {     
-          meilleureCuveIndex = j;
-          meilleureCuveScore = score;
-          differenceMin = std::abs(score - volumeRestant);
+    for (int j = 0; j < tanks.size(); j++) {
+      if (j != i && tanks[j].quantity <= volumeRemaining && tanks[j].wines_contenu[0] == "/" && tanks[j].quantity < tanks[j].capacity) {
+        double score = std::round(tanks[j].quantity * 10) / 10.0;
+        if (std::abs(volumeRemaining - score) < epsilon) {     
+          bestTankIndex = j;
+          bestTankscore = score;
+          differenceMin = std::abs(score - volumeRemaining);
           
         }
       }
     }
 
-    if (meilleureCuveIndex != -1) {
-      cuves[meilleureCuveIndex].vins_contenu[0] = cuve.vins_contenu[0];
-      fichier << "Transfert of " << cuves[meilleureCuveIndex].quantite << "hL of " << cuve.vins_contenu[0] << " of the tank " << cuve.number << " to the tank " << cuves[meilleureCuveIndex].number << endl;
-      fichier << endl;
-      cuve.vins_contenu[0] = "/";
-      cuve.aSubiTransfert = true;
-      cuves[meilleureCuveIndex].aSubiTransfert = true;
-      cuve.quantite -= cuves[meilleureCuveIndex].quantite;
-    } else if (cuve.quantite != cuve.capacite) {
+    if (bestTankIndex != -1) {
+      tanks[bestTankIndex].wines_contenu[0] = tank.wines_contenu[0];
+      folder << "transfer of " << tanks[bestTankIndex].quantity << "hL of " << tank.wines_contenu[0] << " of the tank " << tank.number << " to the tank " << tanks[bestTankIndex].number << endl;
+      folder << endl;
+      tank.wines_contenu[0] = "/";
+      tank.aSubitransfer = true;
+      tanks[bestTankIndex].aSubitransfer = true;
+      tank.quantity -= tanks[bestTankIndex].quantity;
+    } else if (tank.quantity != tank.capacity) {
       cout << "No empty tank with sufficient volume was found. Search for a combination of tanks..." << endl;
 
-      double meilleureDifference = DBL_MAX;
-      vector<int> meilleureCombinaison;
-      bool combinaisonTrouvee = trouverMeilleureCombinaisonCuves(cuves, volumeRestant, meilleureCombinaison, meilleureDifference);
+      double bestDifference = DBL_MAX;
+      vector<int> bestCombinaison;
+      bool combinaisonTrouvee = trouverbestCombinaisontanks(tanks, volumeRemaining, bestCombinaison, bestDifference);
 
 if (combinaisonTrouvee) {
   cout << "Combination of tanks found :" << endl;
 
-  unordered_set<int> cuvesDejaTransferees;
-  cuvesDejaTransferees.reserve(meilleureCombinaison.size());
+  unordered_set<int> tanksAlreadyTransfers;
+  tanksAlreadyTransfers.reserve(bestCombinaison.size());
 
-  for (auto it = meilleureCombinaison.cbegin(); it != meilleureCombinaison.cend(); ++it) {
+  for (auto it = bestCombinaison.cbegin(); it != bestCombinaison.cend(); ++it) {
     int index = *it;
-    if (cuves[index].quantite >= 0.1 && cuvesDejaTransferees.find(index) == cuvesDejaTransferees.end()) {
-      double transfertVolume = std::min(cuves[index].quantite, volumeRestant);
-      if (transfertVolume >= 0.1 && cuve.quantite >= 0.1) {
-        cuve.quantite -= transfertVolume;
-         if (cuve.quantite < 0) {
-          cuve.quantite += transfertVolume;
+    if (tanks[index].quantity >= 0.1 && tanksAlreadyTransfers.find(index) == tanksAlreadyTransfers.end()) {
+      double transferVolume = std::min(tanks[index].quantity, volumeRemaining);
+      if (transferVolume >= 0.1 && tank.quantity >= 0.1) {
+        tank.quantity -= transferVolume;
+         if (tank.quantity < 0) {
+          tank.quantity += transferVolume;
           break;
         } 
-          cuves[index].vins_contenu[0] = cuve.vins_contenu[0];
-          cuves[index].aSubiTransfert = true;
+          tanks[index].wines_contenu[0] = tank.wines_contenu[0];
+          tanks[index].aSubitransfer = true;
           
-          fichier << "Transfer of " << transfertVolume << "hL of " << cuve.vins_contenu[0] << " of the tank " << cuve.number << " to the tank " << cuves[index].number << endl;
-          cuvesDejaTransferees.emplace_hint(cuvesDejaTransferees.end(), index);
+          folder << "Transfer of " << transferVolume << "hL of " << tank.wines_contenu[0] << " of the tank " << tank.number << " to the tank " << tanks[index].number << endl;
+          tanksAlreadyTransfers.emplace_hint(tanksAlreadyTransfers.end(), index);
         }
         
       }
     }
-    fichier << endl;
+    folder << endl;
   }
 
 
-  if (cuve.quantite < 0.001) {
-    cuve.vins_contenu[0] = "/";
+  if (tank.quantity < 0.001) {
+    tank.wines_contenu[0] = "/";
   }
 
   cout << endl;
@@ -604,50 +604,50 @@ if (combinaisonTrouvee) {
     }
 
 
-for (int i = 0; i < cuves.size(); i++) {
-  Cuve& cuve = cuves[i];
-  if (cuve.vins_contenu[0] == "/") {
-   double volume = cuve.quantite - cuve.quantite;
-  cout << "Tank " << cuve.number << ": " << volume << "hL of " << cuve.vins_contenu[0] << endl;
+for (int i = 0; i < tanks.size(); i++) {
+  Tank& tank = tanks[i];
+  if (tank.wines_contenu[0] == "/") {
+   double volume = tank.quantity - tank.quantity;
+  cout << "Tank " << tank.number << ": " << volume << "hL of " << tank.wines_contenu[0] << endl;
   } else {
-  cout << "Tank " << cuve.number << ": " << cuve.quantite << "hL of " << cuve.vins_contenu[0] << endl;
+  cout << "Tank " << tank.number << ": " << tank.quantity << "hL of " << tank.wines_contenu[0] << endl;
   }
 }
-fichier << "------------" << endl;
-fichier << "------------" << endl;
-fichier << endl; 
-fichier << "LEFTOVERS / RESTES" << endl;
-fichier << endl;
-fichier << "The leftovers are indicated by the name of the wine, the quantity, and the tank ID." << endl;
-fichier << "Les restes sont indiqués par nom, quantité et ID de cuve" << endl;
-fichier << endl;
-for (int i = 0; i < cuves.size(); i++) {
-  Cuve& cuve = cuves[i];
-  if (cuve.quantite > 0 && cuve.quantite < cuve.capacite) {
-    fichier << "Tank " << cuve.number << ": " << cuve.quantite << "hL de " << cuve.vins_contenu[0] << std::endl;
+folder << "------------" << endl;
+folder << "------------" << endl;
+folder << endl; 
+folder << "LEFTOVERS / RESTES" << endl;
+folder << endl;
+folder << "The leftovers are indicated by the name of the wine, the quantity, and the tank ID." << endl;
+folder << "Les restes sont indiqués par nom, quantité et ID de tank" << endl;
+folder << endl;
+for (int i = 0; i < tanks.size(); i++) {
+  Tank& tank = tanks[i];
+  if (tank.quantity > 0 && tank.quantity < tank.capacity) {
+    folder << "Tank " << tank.number << ": " << tank.quantity << "hL of " << tank.wines_contenu[0] << std::endl;
   }
 }
 
-fichier << endl;
-fichier << "------------" << endl;
-fichier << "------------" << endl;
-fichier << endl;
-fichier << "Volume tank containing champagne :" << std::endl;
-for (int i = 0; i < cuves.size(); i++) {
+folder << endl;
+folder << "------------" << endl;
+folder << "------------" << endl;
+folder << endl;
+folder << "Volume tank containing champagne :" << std::endl;
+for (int i = 0; i < tanks.size(); i++) {
   
-  Cuve& cuve = cuves[i];
-  if (cuve.vins_contenu[0] == "Champagne" || cuve.vins_contenu[0] == "champagne" || cuve.vins_contenu[0] == "CHAMPAGNE") {
-    fichier << "Tank " << cuve.number << ": " << cuve.quantite << "hL de " << cuve.vins_contenu[0] << std::endl;
+  Tank& tank = tanks[i];
+  if (tank.wines_contenu[0] == "Champagne" || tank.wines_contenu[0] == "champagne" || tank.wines_contenu[0] == "CHAMPAGNE") {
+    folder << "Tank " << tank.number << ": " << tank.quantity << "hL of " << tank.wines_contenu[0] << std::endl;
    
   }
 }
-fichier << "------------" << endl;
-fichier << "------------" << endl;
-fichier << endl;
-fichier << "Total champagne volume is " << total_volume_all_wines<< " hL"  << endl;
+folder << "------------" << endl;
+folder << "------------" << endl;
+folder << endl;
+folder << "Total champagne volume is " << total_volume_all_wines<< " hL"  << endl;
 
 cout << "the file has been created successfully" << endl;
-fichier.close();
+folder.close();
   
 }
 else {
