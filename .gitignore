@@ -2,7 +2,6 @@
 .vscode/settings.json
 .vscode/tasks.json
 bazel-2022-2023-project-5-algorithmics-Team-5
-bazel-bin
 BUILD
 bazel-out
 bazel-testlogs
