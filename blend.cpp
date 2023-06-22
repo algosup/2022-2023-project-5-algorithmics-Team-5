@@ -400,7 +400,7 @@ std::vector<bool> cuves_deja_ecrites(cuves.size(), false); // Tableau pour suivr
 fichier << "FINAL FORMULA / FORMULE FINALE :" << std::endl;
 
 std::map<std::string, double> transferts_champagne;
-std::map<std::string, std::map<int, double>> volumes_transférés;
+std::map<std::string, std::map<int, double>> volumes_transferes;
 
 // Write the final formula
 for (int i = 0; i < vins.size(); i++) {
