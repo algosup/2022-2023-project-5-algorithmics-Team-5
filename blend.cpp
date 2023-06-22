@@ -14,6 +14,7 @@
 
 using namespace std;
 
+// Structure to store the tank information
 struct Cuve {
   string number;
   double quantite;
@@ -29,10 +30,13 @@ struct VolumeRestant {
   double volume;
   int cuveIndex;
 };
+
+// Function to generate a key for the memoization
 std::string generateMemoKey(double volumeRestant, int index) {
   return std::to_string(volumeRestant) + "_" + std::to_string(index);
 }
 
+// Function to find the best combination of tanks to fill the remaining volume
 void trouverCombinaisonCuves(vector<Cuve>& cuves, double volumeRestant, vector<int>& meilleureCombinaison, double& meilleureDifference, vector<int>& combinaisonActuelle, int index, unordered_map<string, pair<double, vector<int>>>& memo) {
   if (volumeRestant < 0.1) {
     double difference = std::abs(volumeRestant);
@@ -53,7 +57,7 @@ void trouverCombinaisonCuves(vector<Cuve>& cuves, double volumeRestant, vector<i
     }
     return;
   }
-
+  // Iterate over the tanks
   for (int i = index; i < cuves.size(); i++) {
     if (cuves[i].quantite >= 0.1 && cuves[i].vins_contenu[0] == "/" && std::find(meilleureCombinaison.begin(), meilleureCombinaison.end(), i) == meilleureCombinaison.end()) {
       combinaisonActuelle.push_back(i);
@@ -68,6 +72,7 @@ void trouverCombinaisonCuves(vector<Cuve>& cuves, double volumeRestant, vector<i
   memo[memoKey] = make_pair(meilleureDifference, meilleureCombinaison);
 }
 
+// Function to find the best combination of tanks to fill the remaining volume
 bool trouverMeilleureCombinaisonCuves(vector<Cuve>& cuves, double volumeRestant, vector<int>& meilleureCombinaison, double& meilleureDifference) {
   vector<int> combinaisonActuelle;
   unordered_map<string, pair<double, vector<int>>> memo;
@@ -86,7 +91,7 @@ int main() {
 
  
 
-  
+  // Open the config file
   ifstream config_file(config_file_path);
   if (!config_file.is_open()) {
     cerr << "Impossible to open the config file selected or you have forgot to drag and drop it" << config_file_path << endl;
@@ -130,6 +135,7 @@ while (getline(config_file, line)) {
         return 1;
       }
 
+      // Check if the tank ID is valid
       Cuve cuve;
       cuve.number = cuveId;
       cuve.quantite = stod(line.substr(pos1 + 1, pos2 - pos1 - 1));
@@ -163,7 +169,7 @@ while (getline(config_file, line)) {
           }
         }
       }
-
+      // If the wine name is not found, throw an error
       if (!found) {
         cerr << "Error: Unknown wine specified in the tank: " << cuve_vin << endl;
         return 1;
@@ -177,7 +183,8 @@ while (getline(config_file, line)) {
 
       cuveLineCount++;
     }
-  } else if (isdigit(line[0])) {
+  } 
+  else if (isdigit(line[0])) {
     quantites.push_back(stoi(line));
     if (quantites.size() >= 2) {
       cerr << "Warning: Only the first quantity value will be considered. Ignoring additional values." << endl;
@@ -207,7 +214,7 @@ while (getline(config_file, line)) {
   }
 }
 
-
+// Check that all required information is present
 if (cuves.empty() || vins.empty() || pourcentages.empty() || quantites.empty()) {
   cerr << "Error: Missing information in the config file" << endl;
   return 1;
@@ -305,7 +312,7 @@ for (int i = 0; i < vins.size(); i++) {
     cerr << "The volume needed is more than the volume you have inside your empty tanks" << endl;
     return 1;
   }
-
+  // Calculate the remaining volume of wine needed
   for (int j = 0; j < cuves.size() && remaining_volume > 0; j++) {
     if (cuves_volumes[j][i] > 0 && cuves[j].vins_contenu[0] == "/") {
       double volume_to_use = min(remaining_volume, cuves_volumes[j][i]);
@@ -346,7 +353,7 @@ for (int i = 0; i < vins.size(); i++) {
       total_cuves_volume += cuves[j].quantite;
   }
 
-
+  
   for (int j = 0; j < cuves_to_use[i].size(); j++) {
     int cuve_index = cuves_to_use[i][j];
     required_volume += cuves_volumes[cuve_index][i];
@@ -395,6 +402,7 @@ fichier << "FINAL FORMULA / FORMULE FINALE :" << std::endl;
 std::map<std::string, double> transferts_champagne;
 std::map<std::string, std::map<int, double>> volumes_transférés;
 
+// Write the final formula
 for (int i = 0; i < vins.size(); i++) {
   fichier << std::endl;
   fichier << "=============================================" << std::endl;
@@ -432,7 +440,7 @@ for (int i = 0; i < vins.size(); i++) {
         if (cuves[k].vins_contenu[0] == vins[i] && cuves[k].quantite > 0 && cuves[k].quantite >= 0.001) {
           double available_volume = cuves[k].quantite;
           double transfer_volume = std::min(remaining_volume, available_volume);
-          fichier << "  - Transfer " << transfer_volume << "hL from cuve " << cuves[k].number << std::endl;
+          fichier << "  - Transfer " << transfer_volume << "hL from tank " << cuves[k].number << std::endl;
           remaining_volume -= transfer_volume;
           cuves[k].quantite -= transfer_volume;
           transfer_done = true;
@@ -444,8 +452,9 @@ for (int i = 0; i < vins.size(); i++) {
         k++;
       }
 
+      // Check if the transfer is done
       if (remaining_volume > 0 && !transfer_done) {
-        fichier << "- Insufficient available volume in other cuves of the same wine to fulfill the requirement." << std::endl;
+        fichier << "- Insufficient available volume in other tanks of the same wine to fulfill the requirement." << std::endl;
       } else if (remaining_volume > 0) {
         fichier << "  - Additional volume needed from other sources: " << remaining_volume << "hL" << std::endl;
       } else {
@@ -595,7 +604,6 @@ if (combinaisonTrouvee) {
     }
 
 
-
 for (int i = 0; i < cuves.size(); i++) {
   Cuve& cuve = cuves[i];
   if (cuve.vins_contenu[0] == "/") {
@@ -616,7 +624,7 @@ fichier << endl;
 for (int i = 0; i < cuves.size(); i++) {
   Cuve& cuve = cuves[i];
   if (cuve.quantite > 0 && cuve.quantite < cuve.capacite) {
-    fichier << "Cuve " << cuve.number << ": " << cuve.quantite << "hL de " << cuve.vins_contenu[0] << std::endl;
+    fichier << "Tank " << cuve.number << ": " << cuve.quantite << "hL de " << cuve.vins_contenu[0] << std::endl;
   }
 }
 
@@ -624,12 +632,12 @@ fichier << endl;
 fichier << "------------" << endl;
 fichier << "------------" << endl;
 fichier << endl;
-fichier << "Volume cuve contenant du champagne :" << std::endl;
+fichier << "Volume tank containing champagne :" << std::endl;
 for (int i = 0; i < cuves.size(); i++) {
   
   Cuve& cuve = cuves[i];
   if (cuve.vins_contenu[0] == "Champagne" || cuve.vins_contenu[0] == "champagne" || cuve.vins_contenu[0] == "CHAMPAGNE") {
-    fichier << "Cuve " << cuve.number << ": " << cuve.quantite << "hL de " << cuve.vins_contenu[0] << std::endl;
+    fichier << "Tank " << cuve.number << ": " << cuve.quantite << "hL de " << cuve.vins_contenu[0] << std::endl;
    
   }
 }

@@ -30,8 +30,8 @@ Pinot noir: 29% (145hL)
 Pinot meunier: 21% (105hL)
 
 Fill steps for tank 4 (Chardonnay):
-  - Transfer 200hL from cuve 1
-  - Transfer 50hL from cuve 6
+  - Transfer 200hL from tank 1
+  - Transfer 50hL from tank 6
 
 Tank : 7
 Chardonnay: 50% (300hL)
@@ -39,7 +39,7 @@ Pinot noir: 29% (174hL)
 Pinot meunier: 21% (126hL)
 
 Fill steps for tank 7 (Chardonnay):
-  - Transfer 300hL from cuve 6
+  - Transfer 300hL from tank 6
 
 Tank : 9
 Chardonnay: 50% (150hL)
@@ -47,7 +47,7 @@ Pinot noir: 29% (87hL)
 Pinot meunier: 21% (63hL)
 
 Fill steps for tank 9 (Chardonnay):
-  - Transfer 150hL from cuve 6
+  - Transfer 150hL from tank 6
 
 Tank : 12
 Chardonnay: 50% (150hL)
@@ -55,8 +55,8 @@ Pinot noir: 29% (87hL)
 Pinot meunier: 21% (63hL)
 
 Fill steps for tank 12 (Chardonnay):
-  - Transfer 100hL from cuve 6
-  - Transfer 50hL from cuve 8
+  - Transfer 100hL from tank 6
+  - Transfer 50hL from tank 8
 
 Tank : 13
 Chardonnay: 50% (270hL)
@@ -64,7 +64,7 @@ Pinot noir: 29% (156.6hL)
 Pinot meunier: 21% (113.4hL)
 
 Fill steps for tank 13 (Chardonnay):
-  - Transfer 270hL from cuve 8
+  - Transfer 270hL from tank 8
 
 Tank : 14
 Chardonnay: 50% (130hL)
@@ -72,7 +72,7 @@ Pinot noir: 29% (75.4hL)
 Pinot meunier: 21% (54.6hL)
 
 Fill steps for tank 14 (Chardonnay):
-  - Transfer 130hL from cuve 8
+  - Transfer 130hL from tank 8
 
 Tank : 15
 Chardonnay: 50% (60hL)
@@ -80,7 +80,7 @@ Pinot noir: 29% (34.8hL)
 Pinot meunier: 21% (25.2hL)
 
 Fill steps for tank 15 (Chardonnay):
-  - Transfer 60hL from cuve 8
+  - Transfer 60hL from tank 8
 
 Tank : 17
 Chardonnay: 50% (200hL)
@@ -88,7 +88,7 @@ Pinot noir: 29% (116hL)
 Pinot meunier: 21% (84hL)
 
 Fill steps for tank 17 (Chardonnay):
-  - Transfer 200hL from cuve 8
+  - Transfer 200hL from tank 8
 
 Tank : 19
 Chardonnay: 50% (370hL)
@@ -96,8 +96,8 @@ Pinot noir: 29% (214.6hL)
 Pinot meunier: 21% (155.4hL)
 
 Fill steps for tank 19 (Chardonnay):
-  - Transfer 90hL from cuve 8
-  - Transfer 280hL from cuve 10
+  - Transfer 90hL from tank 8
+  - Transfer 280hL from tank 10
 
 Tank : 20
 Chardonnay: 50% (319.5hL)
@@ -105,8 +105,8 @@ Pinot noir: 29% (185.31hL)
 Pinot meunier: 21% (134.19hL)
 
 Fill steps for tank 20 (Chardonnay):
-  - Transfer 120hL from cuve 10
-  - Transfer 199.5hL from cuve 18
+  - Transfer 120hL from tank 10
+  - Transfer 199.5hL from tank 18
 
 Tank : 21
 Chardonnay: 50% (401hL)
@@ -114,8 +114,8 @@ Pinot noir: 29% (232.58hL)
 Pinot meunier: 21% (168.42hL)
 
 Fill steps for tank 21 (Chardonnay):
-  - Transfer 400.5hL from cuve 18
-  - Transfer 0.5hL from cuve 24
+  - Transfer 400.5hL from tank 18
+  - Transfer 0.5hL from tank 24
 
 Tank : 22
 Chardonnay: 50% (37hL)
@@ -123,7 +123,7 @@ Pinot noir: 29% (21.46hL)
 Pinot meunier: 21% (15.54hL)
 
 Fill steps for tank 22 (Chardonnay):
-  - Transfer 37hL from cuve 24
+  - Transfer 37hL from tank 24
 
 Tank : 23
 Chardonnay: 50% (335hL)
@@ -131,7 +131,7 @@ Pinot noir: 29% (194.3hL)
 Pinot meunier: 21% (140.7hL)
 
 Fill steps for tank 23 (Chardonnay):
-  - Transfer 335hL from cuve 24
+  - Transfer 335hL from tank 24
 
 Tank : 25
 Chardonnay: 50% (243hL)
@@ -139,7 +139,7 @@ Pinot noir: 29% (140.94hL)
 Pinot meunier: 21% (102.06hL)
 
 Fill steps for tank 25 (Chardonnay):
-  - Transfer 243hL from cuve 24
+  - Transfer 243hL from tank 24
 
 Tank : 26
 Chardonnay: 50% (137hL)
@@ -147,7 +147,7 @@ Pinot noir: 29% (79.46hL)
 Pinot meunier: 21% (57.54hL)
 
 Fill steps for tank 26 (Chardonnay):
-  - Transfer 137hL from cuve 24
+  - Transfer 137hL from tank 24
 
 Tank : 27
 Chardonnay: 50% (86.5hL)
@@ -155,8 +155,8 @@ Pinot noir: 29% (50.17hL)
 Pinot meunier: 21% (36.33hL)
 
 Fill steps for tank 27 (Chardonnay):
-  - Transfer 48.5hL from cuve 24
-  - Transfer 38hL from cuve 33
+  - Transfer 48.5hL from tank 24
+  - Transfer 38hL from tank 33
 
 Tank : 29
 Chardonnay: 50% (94.5hL)
@@ -164,7 +164,7 @@ Pinot noir: 29% (54.81hL)
 Pinot meunier: 21% (39.69hL)
 
 Fill steps for tank 29 (Chardonnay):
-  - Transfer 94.5hL from cuve 33
+  - Transfer 94.5hL from tank 33
 
 Tank : 30
 Chardonnay: 50% (64.5hL)
@@ -172,7 +172,7 @@ Pinot noir: 29% (37.41hL)
 Pinot meunier: 21% (27.09hL)
 
 Fill steps for tank 30 (Chardonnay):
-  - Transfer 64.5hL from cuve 33
+  - Transfer 64.5hL from tank 33
 
 Tank : 32
 Chardonnay: 50% (125.5hL)
@@ -180,8 +180,8 @@ Pinot noir: 29% (72.79hL)
 Pinot meunier: 21% (52.71hL)
 
 Fill steps for tank 32 (Chardonnay):
-  - Transfer 108hL from cuve 33
-  - Transfer 17.5hL from cuve 35
+  - Transfer 108hL from tank 33
+  - Transfer 17.5hL from tank 35
 
 Tank : 34
 Chardonnay: 50% (39.5hL)
@@ -189,7 +189,7 @@ Pinot noir: 29% (22.91hL)
 Pinot meunier: 21% (16.59hL)
 
 Fill steps for tank 34 (Chardonnay):
-  - Transfer 39.5hL from cuve 35
+  - Transfer 39.5hL from tank 35
 
 Tank : 36
 Chardonnay: 50% (32hL)
@@ -197,7 +197,7 @@ Pinot noir: 29% (18.56hL)
 Pinot meunier: 21% (13.44hL)
 
 Fill steps for tank 36 (Chardonnay):
-  - Transfer 32hL from cuve 35
+  - Transfer 32hL from tank 35
 
 Tank : 37
 Chardonnay: 50% (189hL)
@@ -205,7 +205,7 @@ Pinot noir: 29% (109.62hL)
 Pinot meunier: 21% (79.38hL)
 
 Fill steps for tank 37 (Chardonnay):
-  - Transfer 189hL from cuve 35
+  - Transfer 189hL from tank 35
 
 Tank : 38
 Chardonnay: 50% (102.5hL)
@@ -213,7 +213,7 @@ Pinot noir: 29% (59.45hL)
 Pinot meunier: 21% (43.05hL)
 
 Fill steps for tank 38 (Chardonnay):
-  - Transfer 102.5hL from cuve 35
+  - Transfer 102.5hL from tank 35
 
 Tank : 40
 Chardonnay: 50% (429hL)
@@ -221,7 +221,7 @@ Pinot noir: 29% (248.82hL)
 Pinot meunier: 21% (180.18hL)
 
 Fill steps for tank 40 (Chardonnay):
-  - Transfer 429hL from cuve 35
+  - Transfer 429hL from tank 35
 
 Tank : 41
 Chardonnay: 50% (459.5hL)
@@ -229,8 +229,8 @@ Pinot noir: 29% (266.51hL)
 Pinot meunier: 21% (192.99hL)
 
 Fill steps for tank 41 (Chardonnay):
-  - Transfer 113.5hL from cuve 35
-  - Transfer 346hL from cuve 42
+  - Transfer 113.5hL from tank 35
+  - Transfer 346hL from tank 42
 
 Tank : 43
 Chardonnay: 50% (76hL)
@@ -238,7 +238,7 @@ Pinot noir: 29% (44.08hL)
 Pinot meunier: 21% (31.92hL)
 
 Fill steps for tank 43 (Chardonnay):
-  - Transfer 76hL from cuve 42
+  - Transfer 76hL from tank 42
 
 Tank : 46
 Chardonnay: 50% (450hL)
@@ -246,8 +246,8 @@ Pinot noir: 29% (261hL)
 Pinot meunier: 21% (189hL)
 
 Fill steps for tank 46 (Chardonnay):
-  - Transfer 103hL from cuve 42
-  - Transfer 347hL from cuve 52
+  - Transfer 103hL from tank 42
+  - Transfer 347hL from tank 52
 
 Tank : 47
 Chardonnay: 50% (28hL)
@@ -255,7 +255,7 @@ Pinot noir: 29% (16.24hL)
 Pinot meunier: 21% (11.76hL)
 
 Fill steps for tank 47 (Chardonnay):
-  - Transfer 28hL from cuve 52
+  - Transfer 28hL from tank 52
 
 Tank : 48
 Chardonnay: 50% (88.5hL)
@@ -263,7 +263,7 @@ Pinot noir: 29% (51.33hL)
 Pinot meunier: 21% (37.17hL)
 
 Fill steps for tank 48 (Chardonnay):
-  - Transfer 88.5hL from cuve 52
+  - Transfer 88.5hL from tank 52
 
 Tank : 49
 Chardonnay: 50% (87hL)
@@ -271,7 +271,7 @@ Pinot noir: 29% (50.46hL)
 Pinot meunier: 21% (36.54hL)
 
 Fill steps for tank 49 (Chardonnay):
-  - Transfer 87hL from cuve 52
+  - Transfer 87hL from tank 52
 
 Tank : 51
 Chardonnay: 50% (91.5hL)
@@ -279,7 +279,7 @@ Pinot noir: 29% (53.07hL)
 Pinot meunier: 21% (38.43hL)
 
 Fill steps for tank 51 (Chardonnay):
-  - Transfer 91.5hL from cuve 52
+  - Transfer 91.5hL from tank 52
 
 Tank : 53
 Chardonnay: 50% (487.5hL)
@@ -287,8 +287,8 @@ Pinot noir: 29% (282.75hL)
 Pinot meunier: 21% (204.75hL)
 
 Fill steps for tank 53 (Chardonnay):
-  - Transfer 206hL from cuve 52
-  - Transfer 281.5hL from cuve 73
+  - Transfer 206hL from tank 52
+  - Transfer 281.5hL from tank 73
 
 Tank : 55
 Chardonnay: 50% (378hL)
@@ -296,7 +296,7 @@ Pinot noir: 29% (219.24hL)
 Pinot meunier: 21% (158.76hL)
 
 Fill steps for tank 55 (Chardonnay):
-  - Transfer 378hL from cuve 73
+  - Transfer 378hL from tank 73
 
 Tank : 57
 Chardonnay: 50% (5hL)
@@ -304,7 +304,7 @@ Pinot noir: 29% (2.9hL)
 Pinot meunier: 21% (2.1hL)
 
 Fill steps for tank 57 (Chardonnay):
-  - Transfer 5hL from cuve 73
+  - Transfer 5hL from tank 73
 
 Tank : 58
 Chardonnay: 50% (457.5hL)
@@ -312,8 +312,8 @@ Pinot noir: 29% (265.35hL)
 Pinot meunier: 21% (192.15hL)
 
 Fill steps for tank 58 (Chardonnay):
-  - Transfer 309.5hL from cuve 73
-  - Transfer 148hL from cuve 81
+  - Transfer 309.5hL from tank 73
+  - Transfer 148hL from tank 81
 
 
 =============================================
@@ -325,7 +325,7 @@ Pinot noir: 29% (145hL)
 Pinot meunier: 21% (105hL)
 
 Fill steps for tank 4 (Pinot noir):
-  - Transfer 145hL from cuve 2
+  - Transfer 145hL from tank 2
 
 Tank : 7
 Chardonnay: 50% (300hL)
@@ -333,7 +333,7 @@ Pinot noir: 29% (174hL)
 Pinot meunier: 21% (126hL)
 
 Fill steps for tank 7 (Pinot noir):
-  - Transfer 174hL from cuve 2
+  - Transfer 174hL from tank 2
 
 Tank : 9
 Chardonnay: 50% (150hL)
@@ -341,7 +341,7 @@ Pinot noir: 29% (87hL)
 Pinot meunier: 21% (63hL)
 
 Fill steps for tank 9 (Pinot noir):
-  - Transfer 87hL from cuve 2
+  - Transfer 87hL from tank 2
 
 Tank : 12
 Chardonnay: 50% (150hL)
@@ -349,8 +349,8 @@ Pinot noir: 29% (87hL)
 Pinot meunier: 21% (63hL)
 
 Fill steps for tank 12 (Pinot noir):
-  - Transfer 74hL from cuve 2
-  - Transfer 13hL from cuve 5
+  - Transfer 74hL from tank 2
+  - Transfer 13hL from tank 5
 
 Tank : 13
 Chardonnay: 50% (270hL)
@@ -358,7 +358,7 @@ Pinot noir: 29% (156.6hL)
 Pinot meunier: 21% (113.4hL)
 
 Fill steps for tank 13 (Pinot noir):
-  - Transfer 156.6hL from cuve 5
+  - Transfer 156.6hL from tank 5
 
 Tank : 14
 Chardonnay: 50% (130hL)
@@ -366,7 +366,7 @@ Pinot noir: 29% (75.4hL)
 Pinot meunier: 21% (54.6hL)
 
 Fill steps for tank 14 (Pinot noir):
-  - Transfer 75.4hL from cuve 5
+  - Transfer 75.4hL from tank 5
 
 Tank : 15
 Chardonnay: 50% (60hL)
@@ -374,7 +374,7 @@ Pinot noir: 29% (34.8hL)
 Pinot meunier: 21% (25.2hL)
 
 Fill steps for tank 15 (Pinot noir):
-  - Transfer 34.8hL from cuve 5
+  - Transfer 34.8hL from tank 5
 
 Tank : 17
 Chardonnay: 50% (200hL)
@@ -382,7 +382,7 @@ Pinot noir: 29% (116hL)
 Pinot meunier: 21% (84hL)
 
 Fill steps for tank 17 (Pinot noir):
-  - Transfer 116hL from cuve 5
+  - Transfer 116hL from tank 5
 
 Tank : 19
 Chardonnay: 50% (370hL)
@@ -390,7 +390,7 @@ Pinot noir: 29% (214.6hL)
 Pinot meunier: 21% (155.4hL)
 
 Fill steps for tank 19 (Pinot noir):
-  - Transfer 214.6hL from cuve 5
+  - Transfer 214.6hL from tank 5
 
 Tank : 20
 Chardonnay: 50% (319.5hL)
@@ -398,7 +398,7 @@ Pinot noir: 29% (185.31hL)
 Pinot meunier: 21% (134.19hL)
 
 Fill steps for tank 20 (Pinot noir):
-  - Transfer 185.31hL from cuve 5
+  - Transfer 185.31hL from tank 5
 
 Tank : 21
 Chardonnay: 50% (401hL)
@@ -406,8 +406,8 @@ Pinot noir: 29% (232.58hL)
 Pinot meunier: 21% (168.42hL)
 
 Fill steps for tank 21 (Pinot noir):
-  - Transfer 104.29hL from cuve 5
-  - Transfer 128.29hL from cuve 31
+  - Transfer 104.29hL from tank 5
+  - Transfer 128.29hL from tank 31
 
 Tank : 22
 Chardonnay: 50% (37hL)
@@ -415,7 +415,7 @@ Pinot noir: 29% (21.46hL)
 Pinot meunier: 21% (15.54hL)
 
 Fill steps for tank 22 (Pinot noir):
-  - Transfer 21.46hL from cuve 31
+  - Transfer 21.46hL from tank 31
 
 Tank : 23
 Chardonnay: 50% (335hL)
@@ -423,7 +423,7 @@ Pinot noir: 29% (194.3hL)
 Pinot meunier: 21% (140.7hL)
 
 Fill steps for tank 23 (Pinot noir):
-  - Transfer 194.3hL from cuve 31
+  - Transfer 194.3hL from tank 31
 
 Tank : 25
 Chardonnay: 50% (243hL)
@@ -431,7 +431,7 @@ Pinot noir: 29% (140.94hL)
 Pinot meunier: 21% (102.06hL)
 
 Fill steps for tank 25 (Pinot noir):
-  - Transfer 140.94hL from cuve 31
+  - Transfer 140.94hL from tank 31
 
 Tank : 26
 Chardonnay: 50% (137hL)
@@ -439,7 +439,7 @@ Pinot noir: 29% (79.46hL)
 Pinot meunier: 21% (57.54hL)
 
 Fill steps for tank 26 (Pinot noir):
-  - Transfer 79.46hL from cuve 31
+  - Transfer 79.46hL from tank 31
 
 Tank : 27
 Chardonnay: 50% (86.5hL)
@@ -447,7 +447,7 @@ Pinot noir: 29% (50.17hL)
 Pinot meunier: 21% (36.33hL)
 
 Fill steps for tank 27 (Pinot noir):
-  - Transfer 50.17hL from cuve 31
+  - Transfer 50.17hL from tank 31
 
 Tank : 29
 Chardonnay: 50% (94.5hL)
@@ -455,7 +455,7 @@ Pinot noir: 29% (54.81hL)
 Pinot meunier: 21% (39.69hL)
 
 Fill steps for tank 29 (Pinot noir):
-  - Transfer 54.81hL from cuve 31
+  - Transfer 54.81hL from tank 31
 
 Tank : 30
 Chardonnay: 50% (64.5hL)
@@ -463,7 +463,7 @@ Pinot noir: 29% (37.41hL)
 Pinot meunier: 21% (27.09hL)
 
 Fill steps for tank 30 (Pinot noir):
-  - Transfer 37.41hL from cuve 31
+  - Transfer 37.41hL from tank 31
 
 Tank : 32
 Chardonnay: 50% (125.5hL)
@@ -471,7 +471,7 @@ Pinot noir: 29% (72.79hL)
 Pinot meunier: 21% (52.71hL)
 
 Fill steps for tank 32 (Pinot noir):
-  - Transfer 72.79hL from cuve 31
+  - Transfer 72.79hL from tank 31
 
 Tank : 34
 Chardonnay: 50% (39.5hL)
@@ -479,7 +479,7 @@ Pinot noir: 29% (22.91hL)
 Pinot meunier: 21% (16.59hL)
 
 Fill steps for tank 34 (Pinot noir):
-  - Transfer 22.91hL from cuve 31
+  - Transfer 22.91hL from tank 31
 
 Tank : 36
 Chardonnay: 50% (32hL)
@@ -487,7 +487,7 @@ Pinot noir: 29% (18.56hL)
 Pinot meunier: 21% (13.44hL)
 
 Fill steps for tank 36 (Pinot noir):
-  - Transfer 18.56hL from cuve 31
+  - Transfer 18.56hL from tank 31
 
 Tank : 37
 Chardonnay: 50% (189hL)
@@ -495,7 +495,7 @@ Pinot noir: 29% (109.62hL)
 Pinot meunier: 21% (79.38hL)
 
 Fill steps for tank 37 (Pinot noir):
-  - Transfer 109.62hL from cuve 31
+  - Transfer 109.62hL from tank 31
 
 Tank : 38
 Chardonnay: 50% (102.5hL)
@@ -503,7 +503,7 @@ Pinot noir: 29% (59.45hL)
 Pinot meunier: 21% (43.05hL)
 
 Fill steps for tank 38 (Pinot noir):
-  - Transfer 59.45hL from cuve 31
+  - Transfer 59.45hL from tank 31
 
 Tank : 40
 Chardonnay: 50% (429hL)
@@ -511,8 +511,8 @@ Pinot noir: 29% (248.82hL)
 Pinot meunier: 21% (180.18hL)
 
 Fill steps for tank 40 (Pinot noir):
-  - Transfer 6.83hL from cuve 31
-  - Transfer 241.99hL from cuve 39
+  - Transfer 6.83hL from tank 31
+  - Transfer 241.99hL from tank 39
 
 Tank : 41
 Chardonnay: 50% (459.5hL)
@@ -520,7 +520,7 @@ Pinot noir: 29% (266.51hL)
 Pinot meunier: 21% (192.99hL)
 
 Fill steps for tank 41 (Pinot noir):
-  - Transfer 266.51hL from cuve 39
+  - Transfer 266.51hL from tank 39
 
 Tank : 43
 Chardonnay: 50% (76hL)
@@ -528,7 +528,7 @@ Pinot noir: 29% (44.08hL)
 Pinot meunier: 21% (31.92hL)
 
 Fill steps for tank 43 (Pinot noir):
-  - Transfer 44.08hL from cuve 39
+  - Transfer 44.08hL from tank 39
 
 Tank : 46
 Chardonnay: 50% (450hL)
@@ -536,7 +536,7 @@ Pinot noir: 29% (261hL)
 Pinot meunier: 21% (189hL)
 
 Fill steps for tank 46 (Pinot noir):
-  - Transfer 261hL from cuve 39
+  - Transfer 261hL from tank 39
 
 Tank : 47
 Chardonnay: 50% (28hL)
@@ -544,7 +544,7 @@ Pinot noir: 29% (16.24hL)
 Pinot meunier: 21% (11.76hL)
 
 Fill steps for tank 47 (Pinot noir):
-  - Transfer 16.24hL from cuve 39
+  - Transfer 16.24hL from tank 39
 
 Tank : 48
 Chardonnay: 50% (88.5hL)
@@ -552,7 +552,7 @@ Pinot noir: 29% (51.33hL)
 Pinot meunier: 21% (37.17hL)
 
 Fill steps for tank 48 (Pinot noir):
-  - Transfer 51.33hL from cuve 39
+  - Transfer 51.33hL from tank 39
 
 Tank : 49
 Chardonnay: 50% (87hL)
@@ -560,8 +560,8 @@ Pinot noir: 29% (50.46hL)
 Pinot meunier: 21% (36.54hL)
 
 Fill steps for tank 49 (Pinot noir):
-  - Transfer 28.85hL from cuve 39
-  - Transfer 21.61hL from cuve 50
+  - Transfer 28.85hL from tank 39
+  - Transfer 21.61hL from tank 50
 
 Tank : 51
 Chardonnay: 50% (91.5hL)
@@ -569,7 +569,7 @@ Pinot noir: 29% (53.07hL)
 Pinot meunier: 21% (38.43hL)
 
 Fill steps for tank 51 (Pinot noir):
-  - Transfer 53.07hL from cuve 50
+  - Transfer 53.07hL from tank 50
 
 Tank : 53
 Chardonnay: 50% (487.5hL)
@@ -577,7 +577,7 @@ Pinot noir: 29% (282.75hL)
 Pinot meunier: 21% (204.75hL)
 
 Fill steps for tank 53 (Pinot noir):
-  - Transfer 282.75hL from cuve 50
+  - Transfer 282.75hL from tank 50
 
 Tank : 55
 Chardonnay: 50% (378hL)
@@ -585,7 +585,7 @@ Pinot noir: 29% (219.24hL)
 Pinot meunier: 21% (158.76hL)
 
 Fill steps for tank 55 (Pinot noir):
-  - Transfer 219.24hL from cuve 50
+  - Transfer 219.24hL from tank 50
 
 Tank : 57
 Chardonnay: 50% (5hL)
@@ -593,7 +593,7 @@ Pinot noir: 29% (2.9hL)
 Pinot meunier: 21% (2.1hL)
 
 Fill steps for tank 57 (Pinot noir):
-  - Transfer 2.9hL from cuve 50
+  - Transfer 2.9hL from tank 50
 
 Tank : 58
 Chardonnay: 50% (457.5hL)
@@ -601,8 +601,8 @@ Pinot noir: 29% (265.35hL)
 Pinot meunier: 21% (192.15hL)
 
 Fill steps for tank 58 (Pinot noir):
-  - Transfer 110.43hL from cuve 50
-  - Transfer 154.92hL from cuve 56
+  - Transfer 110.43hL from tank 50
+  - Transfer 154.92hL from tank 56
 
 Tank : 59
 Chardonnay: 50% (221.5hL)
@@ -610,7 +610,7 @@ Pinot noir: 29% (128.47hL)
 Pinot meunier: 21% (93.03hL)
 
 Fill steps for tank 59 (Pinot noir):
-  - Transfer 128.47hL from cuve 56
+  - Transfer 128.47hL from tank 56
 
 Tank : 60
 Chardonnay: 50% (81hL)
@@ -618,7 +618,7 @@ Pinot noir: 29% (46.98hL)
 Pinot meunier: 21% (34.02hL)
 
 Fill steps for tank 60 (Pinot noir):
-  - Transfer 46.98hL from cuve 56
+  - Transfer 46.98hL from tank 56
 
 Tank : 61
 Chardonnay: 50% (332hL)
@@ -626,8 +626,8 @@ Pinot noir: 29% (192.56hL)
 Pinot meunier: 21% (139.44hL)
 
 Fill steps for tank 61 (Pinot noir):
-  - Transfer 179.63hL from cuve 56
-  - Transfer 12.93hL from cuve 196
+  - Transfer 179.63hL from tank 56
+  - Transfer 12.93hL from tank 196
 
 
 =============================================
@@ -639,7 +639,7 @@ Pinot noir: 29% (145hL)
 Pinot meunier: 21% (105hL)
 
 Fill steps for tank 4 (Pinot meunier):
-  - Transfer 105hL from cuve 3
+  - Transfer 105hL from tank 3
 
 Tank : 7
 Chardonnay: 50% (300hL)
@@ -647,7 +647,7 @@ Pinot noir: 29% (174hL)
 Pinot meunier: 21% (126hL)
 
 Fill steps for tank 7 (Pinot meunier):
-  - Transfer 126hL from cuve 3
+  - Transfer 126hL from tank 3
 
 Tank : 9
 Chardonnay: 50% (150hL)
@@ -655,7 +655,7 @@ Pinot noir: 29% (87hL)
 Pinot meunier: 21% (63hL)
 
 Fill steps for tank 9 (Pinot meunier):
-  - Transfer 63hL from cuve 3
+  - Transfer 63hL from tank 3
 
 Tank : 12
 Chardonnay: 50% (150hL)
@@ -663,7 +663,7 @@ Pinot noir: 29% (87hL)
 Pinot meunier: 21% (63hL)
 
 Fill steps for tank 12 (Pinot meunier):
-  - Transfer 63hL from cuve 3
+  - Transfer 63hL from tank 3
 
 Tank : 13
 Chardonnay: 50% (270hL)
@@ -671,7 +671,7 @@ Pinot noir: 29% (156.6hL)
 Pinot meunier: 21% (113.4hL)
 
 Fill steps for tank 13 (Pinot meunier):
-  - Transfer 113.4hL from cuve 3
+  - Transfer 113.4hL from tank 3
 
 Tank : 14
 Chardonnay: 50% (130hL)
@@ -679,7 +679,7 @@ Pinot noir: 29% (75.4hL)
 Pinot meunier: 21% (54.6hL)
 
 Fill steps for tank 14 (Pinot meunier):
-  - Transfer 54.6hL from cuve 3
+  - Transfer 54.6hL from tank 3
 
 Tank : 15
 Chardonnay: 50% (60hL)
@@ -687,8 +687,8 @@ Pinot noir: 29% (34.8hL)
 Pinot meunier: 21% (25.2hL)
 
 Fill steps for tank 15 (Pinot meunier):
-  - Transfer 15hL from cuve 3
-  - Transfer 10.2hL from cuve 11
+  - Transfer 15hL from tank 3
+  - Transfer 10.2hL from tank 11
 
 Tank : 17
 Chardonnay: 50% (200hL)
@@ -696,7 +696,7 @@ Pinot noir: 29% (116hL)
 Pinot meunier: 21% (84hL)
 
 Fill steps for tank 17 (Pinot meunier):
-  - Transfer 84hL from cuve 11
+  - Transfer 84hL from tank 11
 
 Tank : 19
 Chardonnay: 50% (370hL)
@@ -704,7 +704,7 @@ Pinot noir: 29% (214.6hL)
 Pinot meunier: 21% (155.4hL)
 
 Fill steps for tank 19 (Pinot meunier):
-  - Transfer 155.4hL from cuve 11
+  - Transfer 155.4hL from tank 11
 
 Tank : 20
 Chardonnay: 50% (319.5hL)
@@ -712,7 +712,7 @@ Pinot noir: 29% (185.31hL)
 Pinot meunier: 21% (134.19hL)
 
 Fill steps for tank 20 (Pinot meunier):
-  - Transfer 134.19hL from cuve 11
+  - Transfer 134.19hL from tank 11
 
 Tank : 21
 Chardonnay: 50% (401hL)
@@ -720,8 +720,8 @@ Pinot noir: 29% (232.58hL)
 Pinot meunier: 21% (168.42hL)
 
 Fill steps for tank 21 (Pinot meunier):
-  - Transfer 16.21hL from cuve 11
-  - Transfer 152.21hL from cuve 28
+  - Transfer 16.21hL from tank 11
+  - Transfer 152.21hL from tank 28
 
 Tank : 22
 Chardonnay: 50% (37hL)
@@ -729,7 +729,7 @@ Pinot noir: 29% (21.46hL)
 Pinot meunier: 21% (15.54hL)
 
 Fill steps for tank 22 (Pinot meunier):
-  - Transfer 15.54hL from cuve 28
+  - Transfer 15.54hL from tank 28
 
 Tank : 23
 Chardonnay: 50% (335hL)
@@ -737,7 +737,7 @@ Pinot noir: 29% (194.3hL)
 Pinot meunier: 21% (140.7hL)
 
 Fill steps for tank 23 (Pinot meunier):
-  - Transfer 140.7hL from cuve 28
+  - Transfer 140.7hL from tank 28
 
 Tank : 25
 Chardonnay: 50% (243hL)
@@ -745,7 +745,7 @@ Pinot noir: 29% (140.94hL)
 Pinot meunier: 21% (102.06hL)
 
 Fill steps for tank 25 (Pinot meunier):
-  - Transfer 102.06hL from cuve 28
+  - Transfer 102.06hL from tank 28
 
 Tank : 26
 Chardonnay: 50% (137hL)
@@ -753,7 +753,7 @@ Pinot noir: 29% (79.46hL)
 Pinot meunier: 21% (57.54hL)
 
 Fill steps for tank 26 (Pinot meunier):
-  - Transfer 57.54hL from cuve 28
+  - Transfer 57.54hL from tank 28
 
 Tank : 27
 Chardonnay: 50% (86.5hL)
@@ -761,7 +761,7 @@ Pinot noir: 29% (50.17hL)
 Pinot meunier: 21% (36.33hL)
 
 Fill steps for tank 27 (Pinot meunier):
-  - Transfer 36.33hL from cuve 28
+  - Transfer 36.33hL from tank 28
 
 Tank : 29
 Chardonnay: 50% (94.5hL)
@@ -769,7 +769,7 @@ Pinot noir: 29% (54.81hL)
 Pinot meunier: 21% (39.69hL)
 
 Fill steps for tank 29 (Pinot meunier):
-  - Transfer 39.69hL from cuve 28
+  - Transfer 39.69hL from tank 28
 
 Tank : 30
 Chardonnay: 50% (64.5hL)
@@ -777,7 +777,7 @@ Pinot noir: 29% (37.41hL)
 Pinot meunier: 21% (27.09hL)
 
 Fill steps for tank 30 (Pinot meunier):
-  - Transfer 27.09hL from cuve 28
+  - Transfer 27.09hL from tank 28
 
 Tank : 32
 Chardonnay: 50% (125.5hL)
@@ -785,7 +785,7 @@ Pinot noir: 29% (72.79hL)
 Pinot meunier: 21% (52.71hL)
 
 Fill steps for tank 32 (Pinot meunier):
-  - Transfer 52.71hL from cuve 28
+  - Transfer 52.71hL from tank 28
 
 Tank : 34
 Chardonnay: 50% (39.5hL)
@@ -793,8 +793,8 @@ Pinot noir: 29% (22.91hL)
 Pinot meunier: 21% (16.59hL)
 
 Fill steps for tank 34 (Pinot meunier):
-  - Transfer 5.13hL from cuve 28
-  - Transfer 11.46hL from cuve 44
+  - Transfer 5.13hL from tank 28
+  - Transfer 11.46hL from tank 44
 
 Tank : 36
 Chardonnay: 50% (32hL)
@@ -802,7 +802,7 @@ Pinot noir: 29% (18.56hL)
 Pinot meunier: 21% (13.44hL)
 
 Fill steps for tank 36 (Pinot meunier):
-  - Transfer 13.44hL from cuve 44
+  - Transfer 13.44hL from tank 44
 
 Tank : 37
 Chardonnay: 50% (189hL)
@@ -810,7 +810,7 @@ Pinot noir: 29% (109.62hL)
 Pinot meunier: 21% (79.38hL)
 
 Fill steps for tank 37 (Pinot meunier):
-  - Transfer 79.38hL from cuve 44
+  - Transfer 79.38hL from tank 44
 
 Tank : 38
 Chardonnay: 50% (102.5hL)
@@ -818,7 +818,7 @@ Pinot noir: 29% (59.45hL)
 Pinot meunier: 21% (43.05hL)
 
 Fill steps for tank 38 (Pinot meunier):
-  - Transfer 43.05hL from cuve 44
+  - Transfer 43.05hL from tank 44
 
 Tank : 40
 Chardonnay: 50% (429hL)
@@ -826,7 +826,7 @@ Pinot noir: 29% (248.82hL)
 Pinot meunier: 21% (180.18hL)
 
 Fill steps for tank 40 (Pinot meunier):
-  - Transfer 180.18hL from cuve 44
+  - Transfer 180.18hL from tank 44
 
 Tank : 41
 Chardonnay: 50% (459.5hL)
@@ -834,7 +834,7 @@ Pinot noir: 29% (266.51hL)
 Pinot meunier: 21% (192.99hL)
 
 Fill steps for tank 41 (Pinot meunier):
-  - Transfer 192.99hL from cuve 44
+  - Transfer 192.99hL from tank 44
 
 Tank : 43
 Chardonnay: 50% (76hL)
@@ -842,7 +842,7 @@ Pinot noir: 29% (44.08hL)
 Pinot meunier: 21% (31.92hL)
 
 Fill steps for tank 43 (Pinot meunier):
-  - Transfer 31.92hL from cuve 44
+  - Transfer 31.92hL from tank 44
 
 Tank : 46
 Chardonnay: 50% (450hL)
@@ -850,8 +850,8 @@ Pinot noir: 29% (261hL)
 Pinot meunier: 21% (189hL)
 
 Fill steps for tank 46 (Pinot meunier):
-  - Transfer 123.58hL from cuve 44
-  - Transfer 65.42hL from cuve 45
+  - Transfer 123.58hL from tank 44
+  - Transfer 65.42hL from tank 45
 
 Tank : 47
 Chardonnay: 50% (28hL)
@@ -859,7 +859,7 @@ Pinot noir: 29% (16.24hL)
 Pinot meunier: 21% (11.76hL)
 
 Fill steps for tank 47 (Pinot meunier):
-  - Transfer 11.76hL from cuve 45
+  - Transfer 11.76hL from tank 45
 
 Tank : 48
 Chardonnay: 50% (88.5hL)
@@ -867,7 +867,7 @@ Pinot noir: 29% (51.33hL)
 Pinot meunier: 21% (37.17hL)
 
 Fill steps for tank 48 (Pinot meunier):
-  - Transfer 37.17hL from cuve 45
+  - Transfer 37.17hL from tank 45
 
 Tank : 49
 Chardonnay: 50% (87hL)
@@ -875,7 +875,7 @@ Pinot noir: 29% (50.46hL)
 Pinot meunier: 21% (36.54hL)
 
 Fill steps for tank 49 (Pinot meunier):
-  - Transfer 36.54hL from cuve 45
+  - Transfer 36.54hL from tank 45
 
 Tank : 51
 Chardonnay: 50% (91.5hL)
@@ -883,7 +883,7 @@ Pinot noir: 29% (53.07hL)
 Pinot meunier: 21% (38.43hL)
 
 Fill steps for tank 51 (Pinot meunier):
-  - Transfer 38.43hL from cuve 45
+  - Transfer 38.43hL from tank 45
 
 Tank : 53
 Chardonnay: 50% (487.5hL)
@@ -891,8 +891,8 @@ Pinot noir: 29% (282.75hL)
 Pinot meunier: 21% (204.75hL)
 
 Fill steps for tank 53 (Pinot meunier):
-  - Transfer 173.68hL from cuve 45
-  - Transfer 31.07hL from cuve 54
+  - Transfer 173.68hL from tank 45
+  - Transfer 31.07hL from tank 54
 
 Tank : 55
 Chardonnay: 50% (378hL)
@@ -900,7 +900,7 @@ Pinot noir: 29% (219.24hL)
 Pinot meunier: 21% (158.76hL)
 
 Fill steps for tank 55 (Pinot meunier):
-  - Transfer 158.76hL from cuve 54
+  - Transfer 158.76hL from tank 54
 
 Tank : 57
 Chardonnay: 50% (5hL)
@@ -908,7 +908,7 @@ Pinot noir: 29% (2.9hL)
 Pinot meunier: 21% (2.1hL)
 
 Fill steps for tank 57 (Pinot meunier):
-  - Transfer 2.1hL from cuve 54
+  - Transfer 2.1hL from tank 54
 
 Tank : 58
 Chardonnay: 50% (457.5hL)
@@ -916,7 +916,7 @@ Pinot noir: 29% (265.35hL)
 Pinot meunier: 21% (192.15hL)
 
 Fill steps for tank 58 (Pinot meunier):
-  - Transfer 192.15hL from cuve 54
+  - Transfer 192.15hL from tank 54
 
 Tank : 59
 Chardonnay: 50% (221.5hL)
@@ -924,7 +924,7 @@ Pinot noir: 29% (128.47hL)
 Pinot meunier: 21% (93.03hL)
 
 Fill steps for tank 59 (Pinot meunier):
-  - Transfer 93.03hL from cuve 54
+  - Transfer 93.03hL from tank 54
 
 Tank : 60
 Chardonnay: 50% (81hL)
@@ -932,7 +932,7 @@ Pinot noir: 29% (46.98hL)
 Pinot meunier: 21% (34.02hL)
 
 Fill steps for tank 60 (Pinot meunier):
-  - Transfer 34.02hL from cuve 54
+  - Transfer 34.02hL from tank 54
 
 Tank : 61
 Chardonnay: 50% (332hL)
@@ -940,7 +940,7 @@ Pinot noir: 29% (192.56hL)
 Pinot meunier: 21% (139.44hL)
 
 Fill steps for tank 61 (Pinot meunier):
-  - Transfer 139.44hL from cuve 54
+  - Transfer 139.44hL from tank 54
 
 
 ------------
@@ -977,52 +977,52 @@ LEFTOVERS / RESTES
 The leftovers are indicated by the name of the wine, the quantity, and the tank ID.
 Les restes sont indiqués par nom, quantité et ID de cuve
 
-Cuve 54: 6.43hL de Pinot meunier
-Cuve 196: 0.07hL de Pinot noir
+Tank 54: 6.43hL de Pinot meunier
+Tank 196: 0.07hL de Pinot noir
 
 ------------
 ------------
 
-Volume cuve contenant du champagne :
-Cuve 4: 500hL de Champagne
-Cuve 7: 600hL de Champagne
-Cuve 9: 300hL de Champagne
-Cuve 12: 300hL de Champagne
-Cuve 13: 540hL de Champagne
-Cuve 14: 260hL de Champagne
-Cuve 15: 120hL de Champagne
-Cuve 16: 350hL de champagne
-Cuve 17: 400hL de Champagne
-Cuve 19: 740hL de Champagne
-Cuve 20: 639hL de Champagne
-Cuve 21: 802hL de Champagne
-Cuve 22: 74hL de Champagne
-Cuve 23: 670hL de Champagne
-Cuve 25: 486hL de Champagne
-Cuve 26: 274hL de Champagne
-Cuve 27: 173hL de Champagne
-Cuve 29: 189hL de Champagne
-Cuve 30: 129hL de Champagne
-Cuve 32: 251hL de Champagne
-Cuve 34: 79hL de Champagne
-Cuve 36: 64hL de Champagne
-Cuve 37: 378hL de Champagne
-Cuve 38: 205hL de Champagne
-Cuve 40: 858hL de Champagne
-Cuve 41: 919hL de Champagne
-Cuve 43: 152hL de Champagne
-Cuve 46: 900hL de Champagne
-Cuve 47: 56hL de Champagne
-Cuve 48: 177hL de Champagne
-Cuve 49: 174hL de Champagne
-Cuve 51: 183hL de Champagne
-Cuve 53: 975hL de Champagne
-Cuve 55: 756hL de Champagne
-Cuve 57: 10hL de Champagne
-Cuve 58: 915hL de Champagne
-Cuve 59: 443hL de Champagne
-Cuve 60: 162hL de Champagne
-Cuve 61: 664hL de Champagne
+Volume tank containing champagne :
+Tank 4: 500hL de Champagne
+Tank 7: 600hL de Champagne
+Tank 9: 300hL de Champagne
+Tank 12: 300hL de Champagne
+Tank 13: 540hL de Champagne
+Tank 14: 260hL de Champagne
+Tank 15: 120hL de Champagne
+Tank 16: 350hL de champagne
+Tank 17: 400hL de Champagne
+Tank 19: 740hL de Champagne
+Tank 20: 639hL de Champagne
+Tank 21: 802hL de Champagne
+Tank 22: 74hL de Champagne
+Tank 23: 670hL de Champagne
+Tank 25: 486hL de Champagne
+Tank 26: 274hL de Champagne
+Tank 27: 173hL de Champagne
+Tank 29: 189hL de Champagne
+Tank 30: 129hL de Champagne
+Tank 32: 251hL de Champagne
+Tank 34: 79hL de Champagne
+Tank 36: 64hL de Champagne
+Tank 37: 378hL de Champagne
+Tank 38: 205hL de Champagne
+Tank 40: 858hL de Champagne
+Tank 41: 919hL de Champagne
+Tank 43: 152hL de Champagne
+Tank 46: 900hL de Champagne
+Tank 47: 56hL de Champagne
+Tank 48: 177hL de Champagne
+Tank 49: 174hL de Champagne
+Tank 51: 183hL de Champagne
+Tank 53: 975hL de Champagne
+Tank 55: 756hL de Champagne
+Tank 57: 10hL de Champagne
+Tank 58: 915hL de Champagne
+Tank 59: 443hL de Champagne
+Tank 60: 162hL de Champagne
+Tank 61: 664hL de Champagne
 ------------
 ------------
 
